@@ -1,17 +1,15 @@
 from django.urls import path
-from mainapp.views import RegistrationView, PostView, ProfileView, CreateProfileView, login, logout, UpdateProfileView, DeleteProfileView, CreatePostView, UpdatePostView, DeletePostView
+from mainapp.views import RegisterView, MainView, ProfileView, CreateProfileView, user_login, user_logout, UpdateProfileView, DeleteProfileView, CreatePostView
 
 
 urlpatterns = [
-    path('registration/', RegistrationView.as_view(), name='registration'),
+    path('register/', RegisterView.as_view(), name='register'),
     path('create_profile/', CreateProfileView.as_view(), name='create_profile'),
-    path('login/', login, name='login'),
-    path('logout/', logout, name='logout'),
+    path('login/', user_login, name='login'),
+    path('logout/', user_logout, name='logout'),
     path('profile/', ProfileView.as_view(), name='profile'),
-    path('update_profile/', UpdateProfileView.as_view(), name='update'),
-    path('delete_profile/', DeleteProfileView.as_view(), name='delete'),
-    path('post/', PostView.as_view(), name='post'),
+    path('update_profile/', UpdateProfileView.as_view(), name='update_profile'),
+    path('delete_profile/', DeleteProfileView.as_view(), name='delete_profile'),
+    path('main/', MainView.as_view(), name='main'),
     path('create_post/', CreatePostView.as_view(), name='create_post'),
-    path('update_post/', UpdatePostView.as_view(), name='update_post'),
-    path('delete_post/', DeletePostView.as_view(), name='delete_post')
 ]

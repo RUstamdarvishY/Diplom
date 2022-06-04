@@ -31,6 +31,7 @@ class Post(models.Model):
     text = models.TextField()
     image = models.ImageField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    number_of_likes = models.IntegerField(default=0, blank=True)
     author = models.ForeignKey(Profile, on_delete=models.DO_NOTHING)
     comments = models.ManyToManyField(Comment)
 
