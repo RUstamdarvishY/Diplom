@@ -7,3 +7,11 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = ('firstname', 'lastname',
                   'profile_picture', 'location', 'bio')
+
+
+class CommentForm(ModelForm):
+    pass
+
+
+class PostFrom(ModelForm):
+    pass

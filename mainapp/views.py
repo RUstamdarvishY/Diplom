@@ -24,19 +24,12 @@ class RegistrationView(View):
         password2 = request.POST.get('password2')
 
         if password == password2:
-            if User.objects.filter(email=email).exists:
-                info(request, 'email already taken')
-                return redirect('registration')
-            elif User.objects.filter(username=username).exists:
-                info(request, 'username already taken')
-                return redirect('registration')
-            else:
-                user = User.objects.create(
-                    username=username,
-                    email=email,
-                    password=password
-                )
-                login(request, user)
+            user = User.objects.create(
+                username=username,
+                email=email,
+                password=password
+            )
+            user.save()
             return redirect('create_profile')
         else:
             error(request, 'passwords do not match')
@@ -83,8 +76,9 @@ class DeleteProfileView(LoginRequiredMixin, TemplateView):
     pass
 
 
-class PostView(TemplateView):
+class PostView(LoginRequiredMixin, TemplateView):
     template_name = 'post.html'
+    login_url = '/login/'
 
 
 class CreatePostView(LoginRequiredMixin, TemplateView):
