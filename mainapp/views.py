@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.messages import error, success
+from django.contrib.messages import error
 from django.views import View
 from mainapp.forms import ProfileForm
 from mainapp.models import Profile
@@ -17,7 +17,7 @@ class RegisterView(View):
         if request.user.is_anonymous:
             return render(request, 'register.html')
         else:
-            return redirect('post')
+            return redirect('main')
 
     def post(self, request):
         username = request.POST.get('username')
@@ -73,41 +73,40 @@ def user_logout(request):
     return redirect('login')
 
 
-class ProfileView(LoginRequiredMixin, ListView):
-    model = Profile
+class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
-    context_object_name = 'profile'
     login_url = '/login/'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["profile"] = Profile.objects.get(user=self.request.user)
+        return context
 
-class UpdateProfileView(LoginRequiredMixin, TemplateView):
+
+class UpdateProfileView(LoginRequiredMixin, TemplateView, FormMixin):
     template_name = 'update_profile.html'
+    form_class = ProfileForm
     login_url = '/login/'
 
     def post(self, request):
-        firstname = request.POST.get('firstname')
-        lastname = request.POST.get('lastname')
-        email = request.POST.get('email')
-        profile_picture = request.POST.get('profile_picture')
-        bio = request.POST.get('bio')
-        location = request.POST.get('location')
-
-        profile = Profile.objects.update(
-            firstname=firstname,
-            lastname=lastname,
-            profile_picture=profile_picture,
-            bio=bio,
-            location=location
-        )
-        profile.save()
-        user = User.objects.update(
-            email=email,
-        )
-        user.save()
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            profile = Profile.objects.get(user=request.user)
+            profile.firstname = data['firstname']
+            profile.lastname = data['lastname']
+            profile.profile_picture = data['profile_picture']
+            profile.location = data['location']
+            profile.bio = data['bio']
+            profile.save()
+        return redirect('main')
 
 
-class DeleteProfileView(LoginRequiredMixin, TemplateView):
-    pass
+@login_required(login_url='/login/')
+def delete_profile(request):
+    model = Profile.objects.get(user=request.user)
+    model.delete()
+    return redirect('register')
 
 
 class MainView(LoginRequiredMixin, TemplateView):
@@ -115,5 +114,5 @@ class MainView(LoginRequiredMixin, TemplateView):
     login_url = '/login/'
 
 
-class CreatePostView(LoginRequiredMixin, TemplateView):
+class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
     pass

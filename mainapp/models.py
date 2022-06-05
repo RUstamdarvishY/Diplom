@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 
 user = get_user_model()
@@ -8,7 +9,7 @@ user = get_user_model()
 class Profile(models.Model):
     firstname = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255)
-    profile_picture = models.ImageField(default=None, blank=True)
+    profile_picture = models.ImageField(default=None, blank=True, null=True)
     location = models.CharField(max_length=255, null=True, blank=True)
     bio = models.CharField(max_length=255, null=True, blank=True)
     user = models.ForeignKey(user, on_delete=models.CASCADE)
