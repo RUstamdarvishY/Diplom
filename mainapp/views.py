@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.password_validation import get_default_password_validators
+from django.core.exceptions import ValidationError
 from django.contrib.messages import error
 from django.views import View
 from mainapp.forms import ProfileForm
@@ -104,8 +106,8 @@ class UpdateProfileView(LoginRequiredMixin, TemplateView, FormMixin):
 
 @login_required(login_url='/login/')
 def delete_profile(request):
-    model = Profile.objects.get(user=request.user)
-    model.delete()
+    user = User.objects.get(username=request.user.username)
+    user.delete()
     return redirect('register')
 
 
