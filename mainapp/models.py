@@ -32,9 +32,10 @@ class Post(models.Model):
     image = models.ImageField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     number_of_likes = models.IntegerField(default=0, null=True, blank=True)
-    author = models.ForeignKey(Profile, on_delete=models.DO_NOTHING)
+    author = models.ForeignKey(
+        user, on_delete=models.DO_NOTHING)
     comments = models.ForeignKey(
-        Comment, on_delete=models.DO_NOTHING, default=None)
+        Comment, on_delete=models.DO_NOTHING, default=None, null=True, blank=True)
 
     def __str__(self):
-        return f'{self.title}, {self.created_at}'
+        return self.title

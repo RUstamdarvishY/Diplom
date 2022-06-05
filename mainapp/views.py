@@ -7,8 +7,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from mainapp.forms import ProfileForm, UserForm
-from mainapp.models import Profile
+from mainapp.forms import ProfileForm, UserForm, PostForm
+from mainapp.models import Profile, Post
+
+# TODO: fix reloading on register
 
 
 def register(request):
@@ -69,6 +71,8 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["profile"] = Profile.objects.get(user=self.request.user)
+        context["number_of_posts"] = Post.objects.filter(
+            author=self.request.user).count()
         return context
 
 
@@ -104,4 +108,14 @@ class MainView(LoginRequiredMixin, TemplateView):
 
 
 class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
-    pass
+    template_name = 'create_post.html'
+    login_url = '/login/'
+    form_class = PostForm
+
+    def post(self, request):
+        form = PostForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            post = Post.objects.create(**data, author=request.user)
+            post.save()
+        return redirect('main')

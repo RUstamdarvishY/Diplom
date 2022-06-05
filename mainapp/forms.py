@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from mainapp.models import Profile
+from mainapp.models import Profile, Post
 
 
 class UserForm(UserCreationForm):
@@ -50,5 +50,7 @@ class ProfileForm(forms.ModelForm):
                   'profile_picture', 'location', 'bio')
 
 
-class PostFrom(forms.ModelForm):
-    pass
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'text', 'image')
