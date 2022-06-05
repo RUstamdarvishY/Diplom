@@ -7,27 +7,25 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.views import View
 from mainapp.forms import ProfileForm, UserForm
 from mainapp.models import Profile
 
 
-class RegisterView(View, FormMixin):
-    form_class = UserForm
-
-    def get(self, request):
-        if request.user.is_anonymous:
-            return render(request, 'register.html')
-        else:
-            return redirect('main')
-
-    def post(self, request):
-        form = UserForm(request.POST)
+def register(request):
+    if request.POST == 'POST':
+        form = UserForm()
         if form.is_valid():
             form.save()
+            return redirect('create_profile')
         else:
             messages.error(request, 'something went wrong')
-            return render(request, 'register.html')
+            return redirect('register')
+    else:
+        form = UserForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'register.html', context)
 
 
 class CreateProfileView(TemplateView, FormMixin):

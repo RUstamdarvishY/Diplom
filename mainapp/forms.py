@@ -50,9 +50,5 @@ class ProfileForm(forms.ModelForm):
                   'profile_picture', 'location', 'bio')
 
 
-class CommentForm(forms.ModelForm):
-    pass
-
-
 class PostFrom(forms.ModelForm):
     pass
