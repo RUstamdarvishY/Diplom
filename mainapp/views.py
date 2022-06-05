@@ -6,15 +6,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.password_validation import get_default_password_validators
-from django.core.exceptions import ValidationError
-from django.contrib.messages import error
+from django.contrib import messages
 from django.views import View
-from mainapp.forms import ProfileForm
+from mainapp.forms import ProfileForm, UserForm
 from mainapp.models import Profile
 
 
-class RegisterView(View):
+class RegisterView(View, FormMixin):
+    form_class = UserForm
+
     def get(self, request):
         if request.user.is_anonymous:
             return render(request, 'register.html')
@@ -22,22 +22,11 @@ class RegisterView(View):
             return redirect('main')
 
     def post(self, request):
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        password2 = request.POST.get('password2')
-
-        if password == password2:
-            user = User.objects.create(
-                username=username,
-                email=email,
-                password=password
-            )
-            user.save()
-            login(request, user)
-            return redirect('create_profile')
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
         else:
-            error(request, 'passwords do not match')
+            messages.error(request, 'something went wrong')
             return render(request, 'register.html')
 
 
@@ -63,7 +52,7 @@ def user_login(request):
             login(request, user)
             return redirect('main')
         else:
-            error(request, 'invalid username or password')
+            messages.error(request, 'invalid username or password')
             return render(request, 'login.html')
     else:
         return render(request, 'login.html')
