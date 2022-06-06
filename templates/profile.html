@@ -37,17 +37,24 @@
                 <b>update profile</b>
             </a>
           </div>
-        </form>
+        </form enctype="multipart/form-data">
         <div class="container-fluid">
           <div class="row merged">
             <div class="col-lg-2 col-sm-3">
               <div class="user-avatar">
                 <figure>
+                  {% if profile.profile_picture %}
                   <img
-                    src="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
+                    src="{{profile.profile_picture.url}}"
                     style="height: 250px; width: 100%"
-                    alt=""
-                  />
+                    alt="">
+                  {% else %}
+                  <img
+                    src="{% static 'images/blank-profile-picture.png' %}"
+                    style="height: 250px; width: 100%"
+                    alt="">
+                  {% endif %}
+                  
                     </label>
                   </form>
                 </figure>

@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from mainapp.forms import ProfileForm, UserForm, PostForm
+from mainapp.forms import ProfileForm, UpdateProfileForm, UserForm, PostForm
 from mainapp.models import Profile, Post
 
 
@@ -79,17 +79,15 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 
 class UpdateProfileView(LoginRequiredMixin, TemplateView, FormMixin):
+    form_class = UpdateProfileForm
     template_name = 'update_profile.html'
-    form_class = ProfileForm
     login_url = '/login/'
 
     def post(self, request):
-        form = ProfileForm(request.POST)
+        form = UpdateProfileForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             profile = Profile.objects.get(user=request.user)
-            profile.firstname = data['firstname']
-            profile.lastname = data['lastname']
             profile.profile_picture = data['profile_picture']
             profile.location = data['location']
             profile.bio = data['bio']
@@ -100,6 +98,7 @@ class UpdateProfileView(LoginRequiredMixin, TemplateView, FormMixin):
 @login_required(login_url='/login/')
 def delete_profile(request):
     user = User.objects.get(username=request.user.username)
+    logout(request)
     user.delete()
     return redirect('register')
 
@@ -110,6 +109,7 @@ class MainView(LoginRequiredMixin, ListView):
     queryset = Post.objects.all()
     context_object_name = 'posts'
     paginate_by = 3
+    ordering = ['-created_at']
 
 
 class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
