@@ -104,9 +104,12 @@ def delete_profile(request):
     return redirect('register')
 
 
-class MainView(LoginRequiredMixin, TemplateView):
+class MainView(LoginRequiredMixin, ListView):
     template_name = 'main.html'
     login_url = '/login/'
+    queryset = Post.objects.all()
+    context_object_name = 'posts'
+    paginate_by = 3
 
 
 class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
