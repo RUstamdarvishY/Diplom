@@ -10,24 +10,26 @@ from django.contrib import messages
 from mainapp.forms import ProfileForm, UserForm, PostForm
 from mainapp.models import Profile, Post
 
-# TODO: fix reloading on register
 
+class RegisterView(TemplateView, FormMixin):
+    template_name = 'register.html'
+    form_class = UserForm
 
-def register(request):
-    if request.POST == 'POST':
-        form = UserForm()
+    def post(self, request):
+        form = UserForm(request.POST)
         if form.is_valid():
-            form.save()
+            data = form.cleaned_data
+            user = User.objects.create(
+                username=data.get('username'),
+                email=data.get('email'),
+                password=data.get('password')
+            )
+            user.save()
+            login(request, user)
             return redirect('create_profile')
         else:
-            messages.error(request, 'something went wrong')
-            return redirect('register')
-    else:
-        form = UserForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'register.html', context)
+            context = {'form': form}
+            return render(request, 'register.html', context)
 
 
 class CreateProfileView(TemplateView, FormMixin):
