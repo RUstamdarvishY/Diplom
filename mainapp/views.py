@@ -110,6 +110,8 @@ class MainView(LoginRequiredMixin, ListView):
     context_object_name = 'posts'
     paginate_by = 3
     ordering = ['-created_at']
+    # number_of_comments = Post.objects.filter().count()
+    # extra_context = {'number_of_comments': number_of_comments}
 
 
 class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
