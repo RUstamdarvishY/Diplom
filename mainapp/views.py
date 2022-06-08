@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from mainapp.forms import ProfileForm, UpdateProfileForm, UserForm, PostForm
-from mainapp.models import Profile, Post
+from mainapp.models import Profile, Post, Comment, LikePost
 
 
 class RegisterView(TemplateView, FormMixin):
@@ -112,7 +112,7 @@ class MainView(LoginRequiredMixin, ListView):
     paginate_by = 3
     ordering = ['-created_at']
     number_of_comments = Post.objects.aggregate(var=Count('comments__id'))
-    extra_context = {'number_of_comments': number_of_comments}
+    extra_context = {'number_of_comments': number_of_comments.get('var')}
 
 
 class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
@@ -126,4 +126,25 @@ class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
             data = form.cleaned_data
             post = Post.objects.create(**data, author=request.user)
             post.save()
+        return redirect('main')
+
+
+@login_required(login_url='/login/')
+def like_post(request):
+    username = request.user.username
+    post_id = request.POST.get('post_id')
+    post = Post.objects.get(id=post_id)
+    like_filter = LikePost.objects.filter(
+        post_id=post_id, username=username).first()
+
+    if like_filter is None:
+        new_like = LikePost.objects.create(post_id=post_id, username=username)
+        new_like.save()
+        post.number_of_likes += 1
+        post.save()
+        return redirect('main')
+    else:
+        like_filter.delete()
+        post.number_of_likes -= 1
+        post.save()
         return redirect('main')
