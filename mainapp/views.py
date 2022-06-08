@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.db.models.aggregates import Count
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormMixin
 from django.views.generic.list import ListView
@@ -110,8 +111,8 @@ class MainView(LoginRequiredMixin, ListView):
     context_object_name = 'posts'
     paginate_by = 3
     ordering = ['-created_at']
-    # number_of_comments = Post.objects.filter().count()
-    # extra_context = {'number_of_comments': number_of_comments}
+    number_of_comments = Post.objects.aggregate(var=Count('comments__id'))
+    extra_context = {'number_of_comments': number_of_comments}
 
 
 class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
