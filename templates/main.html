@@ -159,7 +159,40 @@
                         
                         {% endfor %}
 
-                             
+                        <style>
+                            .center {
+                              text-align: center;
+                            }
+                            
+                            .pagination {
+                              display: inline-block;
+                            }
+                            
+                            .pagination a {
+                              color: black;
+                              float: left;
+                              padding: 8px 16px;
+                              text-decoration: none;
+                              transition: background-color .3s;
+                            }
+                            
+                            .pagination a.active {
+                              background-color: #4CAF50;
+                              color: white;
+                            }
+                            
+                            .pagination a:hover:not(.active) {background-color: #ddd;}
+                            </style>
+                <div class="center">
+                    <div class="pagination">
+                        <ul>
+                            {% for p in paginator.page_range %}
+                            <a href="?page={{ p }}">{{ p }}</a>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
 
  <!-- Scripts
     ================================================== -->

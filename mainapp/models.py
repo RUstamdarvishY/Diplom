@@ -37,8 +37,8 @@ class Post(models.Model):
                               validators=[validate_file_size], null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     number_of_likes = models.IntegerField(default=0, null=True, blank=True)
-    comments = models.ForeignKey(
-        Comment, on_delete=models.DO_NOTHING, default=0, null=True, blank=True)
+    comments = models.ManyToManyField(
+        Comment, default=0, blank=True, related_name='post_comments')
     author = models.ForeignKey(
         user, on_delete=models.DO_NOTHING)
 

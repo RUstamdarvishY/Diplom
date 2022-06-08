@@ -111,8 +111,12 @@ class MainView(LoginRequiredMixin, ListView):
     context_object_name = 'posts'
     paginate_by = 3
     ordering = ['-created_at']
-    number_of_comments = Post.objects.filter().aggregate(var=Count('comments__id'))
-    extra_context = {'number_of_comments': number_of_comments.get('var')}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        number_of_comments = Post.objects.aggregate(var=Count('comments'))
+        context['number_of_comments'] = number_of_comments.get('var')
+        return context
 
 
 class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
