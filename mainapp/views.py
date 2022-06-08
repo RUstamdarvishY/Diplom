@@ -111,7 +111,7 @@ class MainView(LoginRequiredMixin, ListView):
     context_object_name = 'posts'
     paginate_by = 3
     ordering = ['-created_at']
-    number_of_comments = Post.objects.aggregate(var=Count('comments__id'))
+    number_of_comments = Post.objects.filter().aggregate(var=Count('comments__id'))
     extra_context = {'number_of_comments': number_of_comments.get('var')}
 
 
@@ -132,7 +132,7 @@ class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
 @login_required(login_url='/login/')
 def like_post(request):
     username = request.user.username
-    post_id = request.POST.get('post_id')
+    post_id = request.GET.get('post_id')
     post = Post.objects.get(id=post_id)
     like_filter = LikePost.objects.filter(
         post_id=post_id, username=username).first()
