@@ -131,7 +131,16 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CELERY_BROKER_URL = 'redis://localhost:6379/1'
+CELERY_BROKER_URL = 'redis://0.0.0.0:6379/1'
+CELERY_BROKER_TRAMSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_RESULT_BACKEND = 'redis://0.0.0.0:6379/1'
+
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.yandex.com'
+# EMAIL_HOST_USER = 'someuser@yandex.com'
+# EMAIL_HOST_PASSWORD = 'Django'
+# EMAIL_PORT = 465
+# DEFAULT_FROM_EMAIL = 'from@rustam.com'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'

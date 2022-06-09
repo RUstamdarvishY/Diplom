@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from mainapp.forms import ProfileForm, UpdateProfileForm, UserForm, PostForm
 from mainapp.models import Profile, Post, Comment, LikePost
+from mainapp.tasks import send_email
 
 
 class RegisterView(TemplateView, FormMixin):
@@ -27,6 +28,7 @@ class RegisterView(TemplateView, FormMixin):
             )
             user.save()
             login(request, user)
+            send_email.delay(data.get('email'), data.get('username'))
             return redirect('create_profile')
         else:
             context = {'form': form}

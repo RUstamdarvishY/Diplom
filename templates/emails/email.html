@@ -1,2 +1,9 @@
-{%block subject%}<strong> Thank You </strong> {%endblock%} {%blockhtml_body%}
-Thanks for registrating on our site {{username}} {%endblock %}
+{% block subject %}My subject for {{username}}{% endblock %} 
+
+{% block html_body %}
+<p>Hi <strong>{{username}}</strong></p>
+
+<p>You just signed up for my website</p>
+
+<p>Thank You</p>
+{% endblock %}

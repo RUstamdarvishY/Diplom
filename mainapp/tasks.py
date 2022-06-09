@@ -1,9 +1,9 @@
-from celery import shared_task
+from blog.celery import celery
 from django.core.mail import BadHeaderError
 from templated_mail.mail import BaseEmailMessage
 
 
-@shared_task
+@celery.task
 def send_email(email, username):
     context = {
         'username': username
@@ -13,4 +13,4 @@ def send_email(email, username):
             template_name='emails/email.html', context=context)
         message.send([email])
     except BadHeaderError:
-        print('Error sending email')
+        print('something went wrong with the email')
