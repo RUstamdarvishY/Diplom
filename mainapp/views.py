@@ -68,7 +68,7 @@ def user_logout(request):
 
 
 @login_required(login_url='/login/')
-def another_profile(request):
+def profile(request):
     pk = request.GET.get('user_pk')
     user = User.objects.get(pk=pk)
     user_profile = Profile.objects.filter(user=user).first()
@@ -87,18 +87,6 @@ def another_profile(request):
         return render(request, 'profile.html', context)
     else:
         return render(request, 'another_profile.html', context)
-
-
-class ProfileView(LoginRequiredMixin, TemplateView):
-    template_name = 'profile.html'
-    login_url = '/login/'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["profile"] = Profile.objects.get(user=self.request.user)
-        context["number_of_posts"] = Post.objects.filter(
-            author=self.request.user).count()
-        return context
 
 
 class UpdateProfileView(LoginRequiredMixin, TemplateView, FormMixin):
