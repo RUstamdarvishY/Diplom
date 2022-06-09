@@ -67,16 +67,25 @@ def user_logout(request):
     return redirect('login')
 
 
-class ProfileView(LoginRequiredMixin, TemplateView):
-    template_name = 'profile.html'
-    login_url = '/login/'
+@login_required(login_url='/login/')
+def another_profile(request):
+    pk = request.GET.get('user_pk')
+    user = User.objects.get(pk=pk)
+    user_profile = Profile.objects.get(user=user)
+    post_number = Post.objects.filter(user=pk).count()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["profile"] = Profile.objects.get(user=self.request.user)
-        context["number_of_posts"] = Post.objects.filter(
-            author=self.request.user).count()
-        return context
+    context = {
+        'user': user,
+        'user_profile': user_profile,
+        'post_number': post_number
+    }
+
+    return render(request, 'another_profile.html', context)
+
+
+class ProfileView(LoginRequiredMixin, TemplateView):
+    login_url = '/login/'
+    template_name = 'profile.html'
 
 
 class UpdateProfileView(LoginRequiredMixin, TemplateView, FormMixin):
