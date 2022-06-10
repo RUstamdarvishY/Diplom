@@ -129,7 +129,8 @@ class MainView(LoginRequiredMixin, ListView):
         number_of_comments = Post.objects.aggregate(var=Count('comments'))
         context['number_of_comments'] = number_of_comments.get('var')
         context['user_image'] = Profile.objects.get(user=self.request.user)
-        context['profile_picture'] = Profile.objects.filter() 
+        # author = User.objects.get()
+        # context['profile_picture'] = Post.objects.filter(author=author)
         return context
 
 
