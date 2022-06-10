@@ -49,9 +49,9 @@
 
                         <!-- profile -->
 
-                        {% if profile.profile_picture %}
+                        {% if user_image.profile_picture.url %}
                         <img
-                          src="{{profile.profile_picture.url}}"
+                          src="{{user_image.profile_picture.url}}"
                           class="header-avatar"
                           alt="">
                         {% else %}
@@ -85,9 +85,9 @@
                                 <div class="flex flex-1 items-center space-x-4">
                                     <a href="#">
                                         <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">  
-                                            {% if profile.profile_picture %}
+                                            {% if profile_picture.profile_picture.url %}
                                             <img
-                                              src="{{profile.profile_picture.url}}"
+                                              src="{{profile_picture.profile_picture.url}}"
                                               class="bg-gray-200 border border-white rounded-full w-8 h-8"
                                               alt="">
                                             {% else %}
@@ -113,9 +113,9 @@
 
                                 <h2>{{p.title}}</h2>
 
-                                {% if p.image %}
+                                {% comment %} {% if p.image.url %}
                                 <p img class="img-article-left thumb" src="{{p.image.url}}"></p>
-                                {% endif %}
+                                {% endif %} {% endcomment %}
 
                                 <h1>{{p.text}}</h1>
 

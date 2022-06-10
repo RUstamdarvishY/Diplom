@@ -9,8 +9,7 @@ user = get_user_model()
 class Profile(models.Model):
     firstname = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255)
-    profile_picture = models.ImageField(upload_to='profile_pictures',
-                                        validators=[validate_file_size],
+    profile_picture = models.ImageField(upload_to='images/',
                                         null=True, blank=True)
     location = models.CharField(
         max_length=255, default='-', null=True, blank=True)
@@ -33,8 +32,8 @@ class Comment(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField()
-    image = models.ImageField(upload_to='post_images',
-                              validators=[validate_file_size], null=True, blank=True)
+    image = models.ImageField(upload_to='images/',
+                              null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     number_of_likes = models.IntegerField(default=0, null=True, blank=True)
     comments = models.ManyToManyField(

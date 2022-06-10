@@ -128,6 +128,8 @@ class MainView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         number_of_comments = Post.objects.aggregate(var=Count('comments'))
         context['number_of_comments'] = number_of_comments.get('var')
+        context['user_image'] = Profile.objects.get(user=self.request.user)
+        context['profile_picture'] = Profile.objects.filter() 
         return context
 
 
