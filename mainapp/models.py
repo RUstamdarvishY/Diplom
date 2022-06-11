@@ -39,7 +39,7 @@ class Comment(models.Model):
                              related_name='comments', default=0, null=True, blank=True)
     text = models.TextField()
     commented_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(Profile, on_delete=models.DO_NOTHING)
+    author = models.ForeignKey(user, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.text

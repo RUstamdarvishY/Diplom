@@ -177,7 +177,7 @@ class CommentView(CreateView, LoginRequiredMixin):
     login_url = '/login/'
     success_url = '/main/'
     
-    def post(self):
+    def post(self, *args):
         pk = self.request.GET.get('post_id')
         post = Post.objects.get(pk=pk)
         author = self.request.user
