@@ -20,15 +20,6 @@ class Profile(models.Model):
         return self.user.username
 
 
-class Comment(models.Model):
-    text = models.TextField()
-    commented_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(Profile, on_delete=models.DO_NOTHING)
-
-    def __str__(self):
-        return self.text
-
-
 class Post(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField()
@@ -36,13 +27,22 @@ class Post(models.Model):
                               null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     number_of_likes = models.IntegerField(default=0, null=True, blank=True)
-    comments = models.ManyToManyField(
-        Comment, default=0, blank=True, related_name='post_comments')
     author = models.ForeignKey(
         user, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,
+                             related_name='comments', default=0, null=True, blank=True)
+    text = models.TextField()
+    commented_at = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(Profile, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.text
 
 
 class LikePost(models.Model):

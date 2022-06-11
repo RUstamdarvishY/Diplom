@@ -1,14 +1,14 @@
 from django.shortcuts import redirect, render
 from django.db.models.aggregates import Count
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import FormMixin
+from django.views.generic.edit import FormMixin, CreateView
 from django.views.generic.list import ListView
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from mainapp.forms import ProfileForm, UpdateProfileForm, UserForm, PostForm
+from mainapp.forms import ProfileForm, UpdateProfileForm, UserForm, PostForm, CommentForm
 from mainapp.models import Profile, Post, Comment, LikePost
 from mainapp.tasks import send_email
 
@@ -132,6 +132,7 @@ class MainView(LoginRequiredMixin, ListView):
         # author = User.objects.get()
         # context['profile_picture'] = Post.objects.filter(author=author)
         return context
+    
 
 
 class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
@@ -167,3 +168,27 @@ def like_post(request):
         post.number_of_likes -= 1
         post.save()
         return redirect('main')
+
+
+class CommentView(CreateView, LoginRequiredMixin):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'comments.html'
+    login_url = '/login/'
+    success_url = '/main/'
+    
+    def post(self):
+        pk = self.request.GET.get('post_id')
+        post = Post.objects.get(pk=pk)
+        author = self.request.user
+        text = self.request.POST.get('text')
+        comment = Comment.objects.create(
+            post = post,
+            author = author,
+            text = text
+        )
+        comment.save()
+        return redirect('main')
+            
+    
+    

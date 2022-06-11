@@ -113,9 +113,9 @@
 
                                 <h2>{{p.title}}</h2>
 
-                                {% if p.image %}
+                                {% comment %} {% if p.image %}
                                 <p img class="img-article-left thumb" src="{{p.image.url}}"></p>
-                                {% endif %} 
+                                {% endif %}  {% endcomment %}
 
 
                                 <h1>{{p.text}}</h1>
@@ -137,7 +137,7 @@
                                         </div>
                                         
                                     </a>
-                                    <a href="#" class="flex items-center space-x-2">
+                                    <a href="/comment/?post_id={{p.pk}}" class="flex items-center space-x-2">
                                         <div class="p-2 rounded-full text-black">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="25" height="25" class="">
                                                 <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" />
@@ -152,17 +152,24 @@
                                     <div class="">
                                          <strong>{{p.number_of_likes}}</strong> likes and<strong>
                                              {{number_of_comments}}</strong> comments
-                                    </div>
-                                </div>
 
-                                <div class="border-t pt-4 space-y-4 ">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {% endfor %}
-
-                        <style>
+                                             {% if not p.comments.all %}
+                                             <h2>No comments</h2>
+                                             {% else %}
+                                             {% for comment in p.comments.all %}
+                                             <strong>{{comment.author}}</strong>
+                                             <br>
+                                             <p>{{comment.text}}</p>
+                                             <br>
+                                             <p>{{comment.commented_at}}</p>
+                                             {% endfor %}
+                                             {% endif %} 
+                                            </div>
+                                        </div>
+                                             
+                                             {% endfor %}
+                                             
+                                            <style>
                             .center {
                               text-align: center;
                             }
