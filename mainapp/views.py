@@ -125,9 +125,7 @@ class MainView(LoginRequiredMixin, ListView):
     ordering = ['-created_at']
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        number_of_comments = Post.objects.aggregate(var=Count('comments'))
-        context['number_of_comments'] = number_of_comments.get('var')
+        context = super().get_context_data(**kwargs)       
         context['user_image'] = Profile.objects.get(user=self.request.user)
         # author = User.objects.get()
         # context['profile_picture'] = Post.objects.filter(author=author)

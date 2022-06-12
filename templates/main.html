@@ -153,8 +153,8 @@
                                     </div>
                                     <div class="">
                                          <strong>{{p.number_of_likes}}</strong> likes and<strong>
-                                             {{number_of_comments}}</strong> comments
-                                        
+                                             {{p.comments.count}}</strong> comments
+                                             <hr>
                                              {% if not p.comments.all %}
                                              <h2>No comments</h2>
                                              {% else %}
@@ -164,6 +164,7 @@
                                              <br>
                                              <h2>{{comment.text}}</h2>
                                              <p class="font-semibold">{{comment.commented_at}}</p>
+                                             <hr>
                                              {% endfor %}
                                              {% endif %} 
                                             </div>
