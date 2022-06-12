@@ -30,7 +30,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     number_of_likes = models.IntegerField(default=0, null=True, blank=True)
     author = models.ForeignKey(
-        user, on_delete=models.DO_NOTHING)
+        user, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -41,7 +41,7 @@ class Comment(models.Model):
                              related_name='comments', default=0, null=True, blank=True)
     text = models.TextField()
     commented_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(user, on_delete=models.DO_NOTHING)
+    author = models.ForeignKey(user, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text
