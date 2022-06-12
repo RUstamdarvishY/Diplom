@@ -83,21 +83,9 @@
                             <!-- post -->
                             <div class="flex justify-between items-center px-4 py-3">
                                 <div class="flex flex-1 items-center space-x-4">
-                                    <a href="#">
                                         <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">  
-                                            {% if profile_picture.profile_picture %}
-                                            <img
-                                              src="{{profile_picture.profile_picture.url}}"
-                                              class="bg-gray-200 border border-white rounded-full w-8 h-8"
-                                              alt="">
-                                            {% else %}
-                                            <img
-                                              src="{% static 'images/blank-profile-picture.png' %}"
-                                              class="bg-gray-200 border border-white rounded-full w-8 h-8"
-                                              alt="">
-                                            {% endif %}
                                         </div>
-                                    </a>
+                                    </a> 
                                     <a href="/profile?user_pk={{p.author.pk}}"
                                     <span class="block capitalize font-semibold "> {{p.author}} </span> 
                                 </a>
@@ -111,11 +99,13 @@
                             <div uk-lightbox>
                                 
 
-                                <h2>{{p.title}}</h2>
+                                <h2><strong>{{p.title}}</strong></h2>
 
-                                {% comment %} {% if p.image %}
-                                <p img class="img-article-left thumb" src="{{p.image.url}}"></p>
-                                {% endif %}  {% endcomment %}
+                                {% if p.image %}
+                                <p img src="{{p.image.url}}"></p>
+                                {% else %}
+                                <p>No Image</p>
+                                {% endif %} 
 
 
                                 <h1>{{p.text}}</h1>

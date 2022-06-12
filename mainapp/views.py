@@ -1,5 +1,4 @@
 from django.shortcuts import redirect, render
-from django.db.models.aggregates import Count
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormMixin, CreateView
 from django.views.generic.list import ListView
@@ -125,12 +124,9 @@ class MainView(LoginRequiredMixin, ListView):
     ordering = ['-created_at']
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)       
+        context = super().get_context_data(**kwargs)
         context['user_image'] = Profile.objects.get(user=self.request.user)
-        # author = User.objects.get()
-        # context['profile_picture'] = Post.objects.filter(author=author)
         return context
-    
 
 
 class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
@@ -174,19 +170,16 @@ class CommentView(CreateView, LoginRequiredMixin):
     template_name = 'comments.html'
     login_url = '/login/'
     success_url = '/main/'
-    
+
     def post(self, *args):
         pk = self.request.GET.get('post_id')
         post = Post.objects.get(pk=pk)
         author = self.request.user
         text = self.request.POST.get('text')
         comment = Comment.objects.create(
-            post = post,
-            author = author,
-            text = text
+            post=post,
+            author=author,
+            text=text
         )
         comment.save()
         return redirect('main')
-            
-    
-    
