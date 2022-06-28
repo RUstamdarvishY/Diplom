@@ -6,7 +6,6 @@ from tests.factories import UserFactory, ProfileFactory, PostFactory, CommentFac
 from django.urls import reverse
 
 
-
 register(UserFactory)
 register(ProfileFactory)
 register(PostFactory)
@@ -27,7 +26,7 @@ def valid_register_data():
 def invalid_password_register_data(valid_register_data):
     data = copy.copy(valid_register_data)
     assert 'password1' in data
-    data['password1'] = 'wrong'
+    data['password1'] = 'wrong_password0'
     return data
 
 
@@ -49,8 +48,8 @@ def invalid_login_data(valid_login_data):
 @pytest.fixture
 def created_user(django_user_model, valid_login_data):
     user = django_user_model.objects.create_user(
-        username=valid_login_data['username'],
-        password=valid_login_data['password'])
+        username=valid_login_data.get('username'),
+        password=valid_login_data.get('password'))
     user.set_password(valid_login_data['password'])
     return user
 
@@ -75,3 +74,73 @@ def logout_url():
 @pytest.fixture(scope='session')
 def register_url():
     return reverse('register')
+
+
+@pytest.fixture
+def login_page(client):
+    url = reverse('login')
+    response = client.get(url)
+    return response
+
+
+@pytest.fixture
+def logout_page(client):
+    url = reverse('logout')
+    response = client.get(url)
+    return response
+
+
+@pytest.fixture
+def register_page(client):
+    url = reverse('register')
+    response = client.get(url)
+    return response
+
+
+@pytest.fixture
+def main_page(client):
+    url = reverse('main')
+    response = client.get(url)
+    return response
+
+
+@pytest.fixture
+def profile_page(client):
+    url = reverse('another_profile')
+    response = client.get(url)
+    return response
+
+
+@pytest.fixture
+def create_profile_page(client):
+    url = reverse('create_profile')
+    response = client.get(url)
+    return response
+
+
+@pytest.fixture
+def delete_profile_page(client):
+    url = reverse('delete_profile')
+    response = client.get(url)
+    return response
+
+
+@pytest.fixture
+def update_profile_page(client):
+    url = reverse('update_profile')
+    response = client.get(url)
+    return response
+
+
+@pytest.fixture
+def create_post_page(client):
+    url = reverse('create_post')
+    response = client.get(url)
+    return response
+
+
+@pytest.fixture
+def comment_page(client):
+    url = reverse('comment')
+    response = client.get(url)
+    return response
