@@ -4,7 +4,7 @@ import copy
 from pytest_factoryboy import register
 from tests.factories import UserFactory, ProfileFactory, PostFactory, CommentFactory
 from django.urls import reverse
-from django.contrib.auth import get_user
+
 
 
 register(UserFactory)
@@ -31,31 +31,9 @@ def invalid_password_register_data(valid_register_data):
     return data
 
 
-@pytest.fixture
-def is_logged_in(client):
-    user = get_user(client)
-    test1 = user.is_authenticated
-    private_area_url = reverse('user:user_edit')
-    response = client.get(private_area_url)
-    test2 = response.status_code == 200
-    test3 = response.wsgi_request.user.is_authenticated
-    return test1 and test2 and test3
-
-
-@pytest.fixture
-def is_not_logged_in(client):
-    user = get_user(client)
-    test1 = not user.is_authenticated
-    private_area_url = reverse('user:user_edit')
-    response = client.get(private_area_url)
-    test2 = response.status_code == 403
-    test3 = not response.wsgi_request.user.is_authenticated
-    return test1 and test2 and test3
-
-
 @pytest.fixture(scope='session')
 def valid_login_data(valid_register_data):
-    username = valid_register_data['username']
+    username = valid_register_data.get('username')
     password = valid_register_data.get('password1')
     return {'username': username, 'password': password}
 
@@ -71,10 +49,17 @@ def invalid_login_data(valid_login_data):
 @pytest.fixture
 def created_user(django_user_model, valid_login_data):
     user = django_user_model.objects.create_user(
-        email=valid_login_data['username'],
+        username=valid_login_data['username'],
         password=valid_login_data['password'])
     user.set_password(valid_login_data['password'])
     return user
+
+
+@pytest.fixture
+def authenticated_user(client, created_user, valid_login_data):
+    client.login(
+        username=valid_login_data['username'], password=valid_login_data['password'])
+    return created_user
 
 
 @pytest.fixture(scope='session')
