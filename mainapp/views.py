@@ -136,8 +136,8 @@ class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
     def post(self, request):
         form = PostForm(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
-            post = Post.objects.create(**data, author=request.user)
+            post = form.save(commit=False)
+            post.author = request.user
             post.save()
         return redirect('main')
 

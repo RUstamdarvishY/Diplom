@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
+from requests import request
 from mainapp.models import Profile, Post, Comment
 
 
@@ -64,9 +65,17 @@ class UpdateProfileForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
+
     class Meta:
         model = Post
         fields = ('title', 'text', 'image')
+
+    def save(self, commit=True):
+        post = Post()
+        post.title = self.cleaned_data['title']
+        post.text = self.cleaned_data['text']
+        post.image = self.cleaned_data['image']
+        return post
 
 
 class CommentForm(forms.ModelForm):
