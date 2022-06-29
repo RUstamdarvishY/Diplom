@@ -1,4 +1,3 @@
-from calendar import c
 import pytest
 from mainapp.models import Profile, Post, Comment
 from django.contrib.auth.models import User
