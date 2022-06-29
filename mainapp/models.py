@@ -11,7 +11,7 @@ allowed_extention = FileExtensionValidator(allowed_extensions=['jpg', 'jpeg'])
 class Profile(models.Model):
     firstname = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255)
-    profile_picture = models.ImageField(upload_to='images',
+    profile_picture = models.ImageField(upload_to='images/',
                                         validators=[
                                             validate_file_size, allowed_extention],
                                         null=True, blank=True)
@@ -27,7 +27,7 @@ class Profile(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField()
-    image = models.ImageField(upload_to='images',
+    image = models.ImageField(upload_to='images/',
                               validators=[validate_file_size,
                                           allowed_extention],
                               null=True, blank=True)

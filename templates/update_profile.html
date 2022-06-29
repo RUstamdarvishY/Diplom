@@ -35,8 +35,17 @@
                         <p></p>
                     </div>
                     <div class="bg-white rounded-md lg:shadow-lg shadow col-span-2">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form enctype="multipart/form-data" method="POST">
                         {% csrf_token %}
+
+                        {% for field in form %} 
+                        {% for error in form.user.errors %}
+                        <div class="alert alert-danger">
+                          <p>{{ error }}</p>
+                        </div>
+                        {% endfor %}
+                        {% endfor %}
+                        
                         {{form.as_p}}
                         <br>
                        <div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
