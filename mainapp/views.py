@@ -23,12 +23,8 @@ class RegisterView(TemplateView, FormMixin):
         form = UserForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            user = User.objects.create(
-                username=data.get('username'),
-                email=data.get('email'),
-                password=data.get('password')
-            )
-            user.save()
+            form.save()
+            user = User.objects.get(username=data.get('username'))
             login(request, user)
             send_email.delay(data.get('email'), data.get('username'))
             return redirect('create_profile')

@@ -31,7 +31,7 @@ class UserForm(forms.Form):
         validate_password(password)
         return password
 
-    def clean(self):
+    def clean_password2(self):
         cleaned_data = super(UserForm, self).clean()
         password = cleaned_data.get('password')
         password2 = cleaned_data.get('password2')
@@ -39,12 +39,14 @@ class UserForm(forms.Form):
         if password and password:
             if password != password2:
                 raise ValidationError("Passwords don't match")
+        return password2
 
     def save(self, commit=True):
-        user = super(UserForm, self).save(commit=False)
-        user.set_password(self.cleaned_data["password"])
-        if commit:
-            user.save()
+        user = User.objects.create_user(
+            self.cleaned_data['username'],
+            self.cleaned_data['email'],
+            self.cleaned_data['password']
+        )
         return user
 
 
