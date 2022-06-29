@@ -40,6 +40,13 @@ class UserForm(forms.Form):
             if password != password2:
                 raise ValidationError("Passwords don't match")
 
+    def save(self, commit=True):
+        user = super(UserForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        return user
+
 
 class ProfileForm(forms.ModelForm):
     class Meta:
@@ -64,5 +71,3 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('text',)
-        
-    

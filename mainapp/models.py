@@ -1,16 +1,20 @@
+from logging import exception
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.validators import FileExtensionValidator
 from mainapp.validators import validate_file_size
 
 
 user = get_user_model()
+allowed_extention = FileExtensionValidator(allowed_extensions=['jpg', 'jpeg'])
 
 
 class Profile(models.Model):
     firstname = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255)
     profile_picture = models.ImageField(upload_to='images',
-                                        validators=[validate_file_size],
+                                        validators=[
+                                            validate_file_size, allowed_extention],
                                         null=True, blank=True)
     location = models.CharField(
         max_length=255, default='-', null=True, blank=True)
@@ -25,7 +29,8 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField()
     image = models.ImageField(upload_to='images',
-                              validators=[validate_file_size],
+                              validators=[validate_file_size,
+                                          allowed_extention],
                               null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     number_of_likes = models.IntegerField(default=0, null=True, blank=True)

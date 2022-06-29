@@ -12,6 +12,9 @@ from mainapp.models import Profile, Post, Comment, LikePost
 from mainapp.tasks import send_email
 
 
+login_url = '/login/'
+
+
 class RegisterView(TemplateView, FormMixin):
     template_name = 'register.html'
     form_class = UserForm
@@ -62,13 +65,13 @@ def user_login(request):
         return render(request, 'login.html')
 
 
-@login_required(login_url='/login/')
+@login_required(login_url=login_url)
 def user_logout(request):
     logout(request)
     return redirect('login')
 
 
-@login_required(login_url='/login/')
+@login_required(login_url=login_url)
 def profile(request):
     pk = request.GET.get('user_pk')
     user = User.objects.get(pk=pk)
@@ -93,7 +96,7 @@ def profile(request):
 class UpdateProfileView(LoginRequiredMixin, TemplateView, FormMixin):
     form_class = UpdateProfileForm
     template_name = 'update_profile.html'
-    login_url = '/login/'
+    login_url = login_url
 
     def post(self, request):
         form = UpdateProfileForm(request.POST)
@@ -107,7 +110,7 @@ class UpdateProfileView(LoginRequiredMixin, TemplateView, FormMixin):
         return redirect('main')
 
 
-@login_required(login_url='/login/')
+@login_required(login_url=login_url)
 def delete_profile(request):
     user = User.objects.get(username=request.user.username)
     logout(request)
@@ -117,7 +120,7 @@ def delete_profile(request):
 
 class MainView(LoginRequiredMixin, ListView):
     template_name = 'main.html'
-    login_url = '/login/'
+    login_url = login_url
     queryset = Post.objects.all()
     context_object_name = 'posts'
     paginate_by = 3
@@ -131,7 +134,7 @@ class MainView(LoginRequiredMixin, ListView):
 
 class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
     template_name = 'create_post.html'
-    login_url = '/login/'
+    login_url = login_url
     form_class = PostForm
 
     def post(self, request):
@@ -143,7 +146,7 @@ class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
         return redirect('main')
 
 
-@login_required(login_url='/login/')
+@login_required(login_url=login_url)
 def like_post(request):
     username = request.user.username
     post_id = request.GET.get('post_id')
@@ -168,7 +171,7 @@ class CommentView(CreateView, LoginRequiredMixin):
     model = Comment
     form_class = CommentForm
     template_name = 'comments.html'
-    login_url = '/login/'
+    login_url = login_url
     success_url = '/main/'
 
     def post(self, *args):
