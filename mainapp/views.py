@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from mainapp.forms import ProfileForm, UpdateProfileForm, UserForm, PostForm, CommentForm
+from mainapp.forms import ProfileForm, UpdateProfileForm, UserForm, PostForm, CommentForm, UpdatePostForm
 from mainapp.models import Profile, Post, Comment, LikePost
 from mainapp.tasks import send_email
 
@@ -86,7 +86,8 @@ def profile(request):
         context["profile"] = Profile.objects.get(user=request.user)
         context["number_of_posts"] = Post.objects.filter(
             author=request.user).count()
-        context["posts"] = Post.objects.filter(author=pk).order_by('-created_at')
+        context["posts"] = Post.objects.filter(
+            author=pk).order_by('-created_at')
         return render(request, 'profile.html', context)
     else:
         return render(request, 'another_profile.html', context)
@@ -164,6 +165,33 @@ def like_post(request):
         post.number_of_likes -= 1
         post.save()
         return redirect('main')
+
+
+@login_required(login_url=login_url)
+def delete_post(request):
+    user_pk = request.user.pk
+    post_id = request.GET.get('post_id')
+    post = Post.objects.get(id=post_id)
+    post.delete()
+    return redirect(f'profile/?user_pk={user_pk}')
+
+
+class UpdatePostView(TemplateView, LoginRequiredMixin, FormMixin):
+    template_name = 'update_post.html'
+    login_url = login_url
+    form_class = UpdatePostForm
+
+    def post(self, request):
+        user_pk = request.user.pk
+        form = UpdatePostForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            post = Post.objects.get(author=user_pk)
+            post.title = data['title']
+            post.text = data['text']
+            post.image = data['image']
+            post.save()
+        return redirect(f'/profile/?user_pk={user_pk}')
 
 
 class CommentView(CreateView, LoginRequiredMixin):
