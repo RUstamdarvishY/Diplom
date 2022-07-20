@@ -73,17 +73,20 @@ def profile(request):
     user = User.objects.get(pk=pk)
     user_profile = Profile.objects.filter(user=user).first()
     post_number = Post.objects.filter(author=pk).count()
+    posts = Post.objects.filter(author=pk).order_by('-created_at')
 
     context = {
         'user': user,
         'user_profile': user_profile,
-        'post_number': post_number
+        'post_number': post_number,
+        'posts': posts
     }
 
     if user == request.user:
         context["profile"] = Profile.objects.get(user=request.user)
         context["number_of_posts"] = Post.objects.filter(
             author=request.user).count()
+        context["posts"] = Post.objects.filter(author=pk).order_by('-created_at')
         return render(request, 'profile.html', context)
     else:
         return render(request, 'another_profile.html', context)
