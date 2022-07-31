@@ -2,4 +2,4 @@
 .vscode
 general.log
 tz.txt
-.env.sh
+.env
