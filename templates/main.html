@@ -1,3 +1,4 @@
+{% load cache %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -71,6 +72,7 @@
                     </div>
                 </div>
             </header>
+            {% cache 600 p %}
 
             {% for p in posts %}
             <div class="container m-auto">
@@ -165,7 +167,8 @@
                                 </div>
                                              
                                 {% endfor %}
-                                             
+                                {% endcache %}            
+                                
                                 <style>
                             .center {
                               text-align: center;

@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.views.decorators.cache import cache_page
 from mainapp.forms import ProfileForm, UpdateProfileForm, UserForm, PostForm, CommentForm, UpdatePostForm
 from mainapp.models import Profile, Post, Comment, LikePost
 from mainapp.tasks import send_email
@@ -68,6 +69,7 @@ def user_logout(request):
 
 
 @login_required(login_url=login_url)
+@cache_page(10 * 60)
 def profile(request):
     pk = request.GET.get('user_pk')
     user = User.objects.get(pk=pk)
