@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import redirect, render
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormMixin, CreateView
@@ -7,13 +8,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.views.decorators.cache import cache_page
+from django.core.exceptions import ObjectDoesNotExist
 from mainapp.forms import ProfileForm, UpdateProfileForm, UserForm, PostForm, CommentForm, UpdatePostForm
 from mainapp.models import Profile, Post, Comment, LikePost
 from mainapp.tasks import send_email
 
 
 login_url = '/login/'
+logger = logging.getLogger(__name__)
 
 
 class RegisterView(TemplateView, FormMixin):
@@ -21,16 +23,22 @@ class RegisterView(TemplateView, FormMixin):
     form_class = UserForm
 
     def post(self, request):
+        logger.info('calling /register')
         form = UserForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             form.save()
-            user = User.objects.get(username=data.get('username'))
+            logger.info('user registration successful')
+            try:
+                user = User.objects.get(username=data.get('username'))
+            except User.DoesNotExist:
+                logger.error('User does not exist')
             login(request, user)
             send_email.delay(data.get('email'), data.get('username'))
             return redirect('create_profile')
         else:
             context = {'form': form}
+            logger.info('form is invalid')
             return render(request, 'register.html', context)
 
 
@@ -39,11 +47,13 @@ class CreateProfileView(TemplateView, FormMixin):
     form_class = ProfileForm
 
     def post(self, request):
+        logger.info('calling /create_profile')
         form = ProfileForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             profile = Profile.objects.create(**data, user=request.user)
             profile.save()
+            logger.info('profile created successfully')
         return redirect('main')
 
 
@@ -54,25 +64,32 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            logger.info('login successful')
             return redirect('main')
         else:
             messages.error(request, 'invalid username or password')
+            logger.info('invalid username or password')
             return render(request, 'login.html')
     else:
+        logger.info('calling /login')
         return render(request, 'login.html')
 
 
 @login_required(login_url=login_url)
 def user_logout(request):
     logout(request)
+    logger.info('logout successful')
     return redirect('login')
 
 
 @login_required(login_url=login_url)
-@cache_page(10 * 60)
 def profile(request):
-    pk = request.GET.get('user_pk')
-    user = User.objects.get(pk=pk)
+    logger.info('calling /profile')
+    try:
+        pk = request.GET.get('user_pk')
+        user = User.objects.get(pk=pk)
+    except User.DoesNotExist:
+        logger.error('user does not exist')
     user_profile = Profile.objects.filter(user=user).first()
     post_number = Post.objects.filter(author=pk).count()
     posts = Post.objects.filter(author=pk).order_by('-created_at')
@@ -90,17 +107,20 @@ def profile(request):
             author=request.user).count()
         context["posts"] = Post.objects.filter(
             author=pk).order_by('-created_at')
+        logger.info('get my profile')
         return render(request, 'profile.html', context)
     else:
+        logger.info(f'get {user.username} profile')
         return render(request, 'another_profile.html', context)
 
 
 class UpdateProfileView(LoginRequiredMixin, TemplateView, FormMixin):
-    form_class = UpdateProfileForm
     template_name = 'update_profile.html'
+    form_class = UpdateProfileForm
     login_url = login_url
 
     def post(self, request):
+        logger.info('calling /update_profile')
         form = UpdateProfileForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
@@ -109,14 +129,19 @@ class UpdateProfileView(LoginRequiredMixin, TemplateView, FormMixin):
             profile.location = data['location']
             profile.bio = data['bio']
             profile.save()
+            logger.info('Profile updated successfully')
         return redirect('main')
 
 
 @login_required(login_url=login_url)
 def delete_profile(request):
-    user = User.objects.get(username=request.user.username)
+    try:
+        user = User.objects.get(username=request.user.username)
+    except User.DoesNotExist:
+        logger.error('user does not exist')
     logout(request)
     user.delete()
+    logger.info('Profile deleted successfully')
     return redirect('register')
 
 
@@ -129,6 +154,7 @@ class MainView(LoginRequiredMixin, ListView):
     ordering = ['-created_at']
 
     def get_context_data(self, **kwargs):
+        logger.info('calling /main')
         context = super().get_context_data(**kwargs)
         context['user_image'] = Profile.objects.get(user=self.request.user)
         return context
@@ -140,10 +166,14 @@ class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
     form_class = PostForm
 
     def post(self, request):
+        logger.info('calling /create_post')
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
+            try:
+                post.author = request.user
+            except User.DoesNotExist:
+                logger.error('user does not exist')
             post.save()
         return redirect('main')
 
@@ -152,7 +182,10 @@ class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
 def like_post(request):
     username = request.user.username
     post_id = request.GET.get('post_id')
-    post = Post.objects.get(id=post_id)
+    try:
+        post = Post.objects.get(id=post_id)
+    except ObjectDoesNotExist:
+        logger.error('post does not exist')
     like_filter = LikePost.objects.filter(
         post_id=post_id, username=username).first()
 
@@ -161,11 +194,13 @@ def like_post(request):
         new_like.save()
         post.number_of_likes += 1
         post.save()
+        logger.info('+1 like')
         return redirect('main')
     else:
         like_filter.delete()
         post.number_of_likes -= 1
         post.save()
+        logger.info('-1 like')
         return redirect('main')
 
 
@@ -173,8 +208,12 @@ def like_post(request):
 def delete_post(request):
     user_pk = request.user.pk
     post_id = request.GET.get('post_id')
-    post = Post.objects.get(id=post_id)
+    try:
+        post = Post.objects.get(id=post_id)
+    except ObjectDoesNotExist:
+        logger.error('Post does not exist')
     post.delete()
+    logger.info('Post deleted successfully')
     return redirect(f'profile/?user_pk={user_pk}')
 
 
@@ -184,15 +223,23 @@ class UpdatePostView(TemplateView, LoginRequiredMixin, FormMixin):
     form_class = UpdatePostForm
 
     def post(self, request):
-        user_pk = request.user.pk
+        logger.info('calling /update_post')
+        try:
+            user_pk = request.user.pk
+        except User.DoesNotExist:
+            logger.error('user does not exist')
         form = UpdatePostForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            post = Post.objects.get(author=user_pk)
+            try:
+                post = Post.objects.get(author=user_pk)
+            except ObjectDoesNotExist:
+                logger.error('post does not exist')
             post.title = data['title']
             post.text = data['text']
             post.image = data['image']
             post.save()
+            logger.info('Post updated successfully')
         return redirect(f'/profile/?user_pk={user_pk}')
 
 
@@ -204,9 +251,16 @@ class CommentView(CreateView, LoginRequiredMixin):
     success_url = '/main/'
 
     def post(self, *args):
-        pk = self.request.GET.get('post_id')
-        post = Post.objects.get(pk=pk)
-        author = self.request.user
+        logger.info('calling /comment')
+        try:
+            pk = self.request.GET.get('post_id')
+            post = Post.objects.get(pk=pk)
+        except ObjectDoesNotExist:
+            logger.error('post does not exist')
+        try:
+            author = self.request.user
+        except User.DoesNotExist:
+            logger.error('author does not exist')
         text = self.request.POST.get('text')
         comment = Comment.objects.create(
             post=post,
@@ -214,4 +268,5 @@ class CommentView(CreateView, LoginRequiredMixin):
             text=text
         )
         comment.save()
+        logger.info('Comment created successfully')
         return redirect('main')

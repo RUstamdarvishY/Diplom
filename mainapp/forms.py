@@ -1,8 +1,11 @@
+import logging
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from mainapp.models import Profile, Post, Comment
+
+logger = logging.getLogger(__name__)
 
 
 class UserForm(forms.Form):
@@ -16,6 +19,7 @@ class UserForm(forms.Form):
         username = self.cleaned_data.get('username')
         new = User.objects.filter(username=username)
         if new.exists():
+            logger.info("User already exists")
             raise ValidationError("User Already Exist")
         return username
 
@@ -23,6 +27,7 @@ class UserForm(forms.Form):
         email = self.cleaned_data.get('email')
         new = User.objects.filter(email=email)
         if new.exists():
+            logger.info("Email already exists")
             raise ValidationError("Email Already Exist")
         return email
 
@@ -38,6 +43,7 @@ class UserForm(forms.Form):
 
         if password and password:
             if password != password2:
+                logger.info("Passwords do not match")
                 raise ValidationError("Passwords don't match")
         return password2
 
