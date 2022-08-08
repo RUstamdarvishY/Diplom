@@ -10,7 +10,7 @@ RUN apk update && apk add \
     libffi-dev \
     openssl-dev cargo \
     cargo \
-    postgresql-dev \
+    mysql-dev \
     jpeg-dev \
     zlib-dev \
     gettext
