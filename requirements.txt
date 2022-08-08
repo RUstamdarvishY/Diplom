@@ -18,6 +18,7 @@ click-repl==0.2.0
 ConfigArgParse==1.5.3
 cryptography==37.0.2
 Deprecated==1.2.13
+dj-database-url==1.0.0
 Django==4.0.5
 django-debug-toolbar==3.4.0
 django-redis==5.2.0
@@ -32,6 +33,7 @@ gevent==21.12.0
 geventhttpclient==2.0
 gprof2dot==2022.7.29
 greenlet==1.1.2
+gunicorn==20.1.0
 h11==0.13.0
 idna==3.3
 importlib-metadata==4.12.0
@@ -40,7 +42,7 @@ iniconfig==1.1.1
 itsdangerous==2.1.2
 Jinja2==3.1.2
 kombu==5.2.4
-locust==2.10.1
+locust==2.10.2
 MarkupSafe==2.1.1
 msgpack==1.0.4
 mysqlclient==2.1.1
@@ -79,6 +81,7 @@ urllib3==1.26.9
 vine==5.0.0
 wcwidth==0.2.5
 Werkzeug==2.2.1
+whitenoise==6.2.0
 wrapt==1.14.1
 wsproto==1.1.0
 zipp==3.8.1

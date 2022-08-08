@@ -34,7 +34,7 @@ class RegisterView(TemplateView, FormMixin):
             except User.DoesNotExist:
                 logger.error('User does not exist')
             login(request, user)
-            send_email.delay(data.get('email'), data.get('username'))
+            # send_email.delay(data.get('email'), data.get('username'))
             return redirect('create_profile')
         else:
             context = {'form': form}
@@ -54,7 +54,7 @@ class CreateProfileView(TemplateView, FormMixin):
             profile = Profile.objects.create(**data, user=request.user)
             profile.save()
             logger.info('profile created successfully')
-        return redirect('main')
+        return redirect('/')
 
 
 def user_login(request):
@@ -65,7 +65,7 @@ def user_login(request):
         if user is not None:
             login(request, user)
             logger.info('login successful')
-            return redirect('main')
+            return redirect('/')
         else:
             messages.error(request, 'invalid username or password')
             logger.info('invalid username or password')
@@ -130,7 +130,7 @@ class UpdateProfileView(LoginRequiredMixin, TemplateView, FormMixin):
             profile.bio = data['bio']
             profile.save()
             logger.info('Profile updated successfully')
-        return redirect('main')
+        return redirect('/')
 
 
 @login_required(login_url=login_url)
@@ -175,7 +175,7 @@ class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
             except User.DoesNotExist:
                 logger.error('user does not exist')
             post.save()
-        return redirect('main')
+        return redirect('/')
 
 
 @login_required(login_url=login_url)
@@ -195,13 +195,13 @@ def like_post(request):
         post.number_of_likes += 1
         post.save()
         logger.info('+1 like')
-        return redirect('main')
+        return redirect('/')
     else:
         like_filter.delete()
         post.number_of_likes -= 1
         post.save()
         logger.info('-1 like')
-        return redirect('main')
+        return redirect('/')
 
 
 @login_required(login_url=login_url)
@@ -248,7 +248,7 @@ class CommentView(CreateView, LoginRequiredMixin):
     form_class = CommentForm
     template_name = 'comments.html'
     login_url = login_url
-    success_url = '/main/'
+    success_url = '/'
 
     def post(self, *args):
         logger.info('calling /comment')
@@ -269,4 +269,4 @@ class CommentView(CreateView, LoginRequiredMixin):
         )
         comment.save()
         logger.info('Comment created successfully')
-        return redirect('main')
+        return redirect('/')
