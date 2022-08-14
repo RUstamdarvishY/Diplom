@@ -6,4 +6,5 @@ fix.txt
 /staticfiles
 __pycache__/
 *.pyc
+media/
 tz.txt
