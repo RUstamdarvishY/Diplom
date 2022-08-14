@@ -1,79 +1,33 @@
 import pytest
-from django.contrib.auth import get_user
 
 
-def is_logged_in(client):
-    user = get_user(client)
-    test = user.is_authenticated
-    return test
+class TestRegistration:
+    @pytest.mark.django_db
+    def test_register_user(self):
+        pass
+
+    def test_register_user_already_exists(self):
+        pass
+
+    def test_register_email_already_exists(self):
+        pass
+
+    def test_register_passwords_dont_match(self):
+        pass
+
+    @pytest.mark.parametrize
+    def test_register_passwords_is_weak(self):
+        pass
 
 
-def is_not_logged_in(client):
-    user = get_user(client)
-    test = not user.is_authenticated
-    return test
+class TestLogin:
+    def test_login_user(self):
+        pass
+
+    def test_login_user_doesnt_exist(self):
+        pass
 
 
-def test_authenticated_user_is_logged_in(client, authenticated_user):
-    assert is_logged_in(client)
-
-
-def test_created_user_is_not_logged_in(client, created_user):
-    assert is_not_logged_in(client)
-
-
-@pytest.mark.django_db
-def test_login_user(client, django_user_model, valid_login_data, login_url, created_user):
-    assert django_user_model.objects.count() == 1
-    response = client.post(login_url, valid_login_data)
-    assert response.status_code in (200, 302)
-    assert is_logged_in(client)
-
-
-@pytest.mark.django_db
-def test_login_with_wrong_data(
-        client, invalid_login_data, created_user, login_url):
-    assert invalid_login_data['username'] == 'wrong_username'
-    assert invalid_login_data['password'] == 'wrong_password'
-    client.post(login_url, data=invalid_login_data)
-    assert is_not_logged_in(client)
-
-
-@pytest.mark.django_db
-def test_logout_user(client, logout_url):
-    response = client.get(logout_url)
-    assert response.status_code == 302
-    assert is_not_logged_in(client)
-
-
-@pytest.mark.django_db
-@pytest.mark.skip
-def test_register_with_valid_data(
-        client, valid_register_data, django_user_model, register_url):
-    assert django_user_model.objects.count() == 0
-    response = client.post(register_url, valid_register_data)
-    assert response.status_code in (200, 302)
-    assert django_user_model.objects.count() == 1
-    assert is_logged_in(client)
-
-
-@pytest.mark.django_db
-def test_register_when_passwords_dont_match(
-        client, invalid_password_register_data, django_user_model, register_url):
-    assert invalid_password_register_data['password1'] == 'wrong_password0'
-    response = client.post(register_url, invalid_password_register_data)
-    assert response.status_code == 200
-    assert django_user_model.objects.count() == 0
-    assert is_not_logged_in(client)
-
-
-@pytest.mark.django_db
-@pytest.mark.parametrize(
-    'weak_password', [('12345',), ('792021552',), ('umsa_',), ('test_username',)])
-def test_register_when_password_not_strong(
-        client, weak_password, django_user_model, register_url, valid_register_data):
-    valid_register_data['password1'] == weak_password
-    response = client.post(register_url, valid_register_data)
-    assert response.status_code == 200
-    assert django_user_model.objects.count() == 0
-    assert is_not_logged_in(client)
+class TestLogout:
+    def test_logout_user(self):
+        pass
