@@ -1,0 +1,54 @@
+version: "3.8"
+services:
+  # django
+  django:
+    build: .
+    volumes:
+      - .:/django_app
+    ports:
+      - 8000:8000
+    image: blog:1.0 
+    restart: on-failure
+    depends_on:
+      - db
+      - redis
+  # mysql
+  db:
+    image: mysql
+    volumes:
+      - mysqldata:/var/lib/mysql/
+    ports:
+        - 3306:3306
+    restart: on-failure
+    environment:
+      MYSQL_DATABASE: mysql
+      MYSQL_USER: root
+      MSQL_PASSWORD: root
+  # redis
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
+    restart: on-failure
+    ports:
+      - 6379:6379
+    volumes:
+      - redisdata:/data
+  # celery
+  celery:
+    build: .
+    command: celery -A storefront worker --loglevel=info
+    depends_on:
+      - redis
+    volumes:
+      - .:/django_app
+  # smtp4dev
+  smtp4dev:
+    image: rnwood/smtp4dev:v3
+    ports:
+      - 5000:80
+      - 25:25
+    restart: always
+
+volumes:
+  mysqldata:
+  redisdata: 
