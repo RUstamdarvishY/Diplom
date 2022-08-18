@@ -6,7 +6,7 @@ import dj_database_url
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['diplom-blog-prod.herokuapp']
+ALLOWED_HOSTS = ['diplom-blog-prod.herokuapp.com']
 
 
 SECRET_KEY = config('SECRET_KEY')
