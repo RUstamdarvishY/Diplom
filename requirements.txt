@@ -45,13 +45,16 @@ kombu==5.2.4
 locust==2.10.2
 MarkupSafe==2.1.1
 msgpack==1.0.4
+mysql-connector-python==8.0.30
 mysqlclient==2.1.1
 outcome==1.2.0
 packaging==21.3
 Pillow==9.1.1
 pluggy==1.0.0
 prompt-toolkit==3.0.29
+protobuf==3.20.1
 psutil==5.9.1
+psycopg2==2.9.3
 py==1.11.0
 pycodestyle==2.9.0
 pycparser==2.21
