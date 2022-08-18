@@ -1,15 +1,11 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from pytest_factoryboy import register
-from django.contrib.auth.models import User
-from tests.factories import UserFactory, ProfileFactory, PostFactory, CommentFactory
-
-
-register(UserFactory)
-register(ProfileFactory)
-register(PostFactory)
-register(CommentFactory)
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 @pytest.fixture
@@ -29,17 +25,44 @@ def get_webdriver(get_chrome_options):
 
 
 @pytest.fixture
-def get_url(request, get_webdriver):
-    def do_get_url(url):
+def get_url(get_webdriver):
+    def do_get_url(url: str):
         driver = get_webdriver
-        driver.get(url)
+        driver.get(''.join('http://localhost:8000/', url))
         yield driver
         driver.quit()
-    return do_get_url        
-        
-        
+    return do_get_url
+
+
 @pytest.fixture
-def auth_user(client):
-    def do_auth_user(is_staff=False):
-        return client.force_authenticate(user=User(is_staff=is_staff))
-    return do_auth_user
+def find_by():
+    def do_find_by(find_by: str):
+        find_by = find_by.lower()
+        location = {
+            'css': By.CSS_SELECTOR,
+            'xpath': By.XPATH,
+            'link_text': By.LINK_TEXT,
+            'partial_link_text': By.PARTIAL_LINK_TEXT,
+            'class': By.CLASS_NAME,
+            'id': By.ID,
+            'tag': By.TAG_NAME,
+            'name': By.NAME
+        }
+        return location[find_by]
+    return do_find_by
+
+
+@pytest.fixture
+def wait_for(get_web_driver, find_by) -> WebElement:
+    def do_wait_for(element):
+        driver = get_web_driver
+        wait = WebDriverWait(driver, 10, 0.3)
+        return wait.until(ec.visibility_of_element_located(find_by, element))
+    return do_wait_for
+
+
+@pytest.fixture
+def actions(get_web_driver):
+    driver = get_web_driver
+    action = ActionChains(driver)
+    return action
