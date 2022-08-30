@@ -1,8 +1,9 @@
 import pytest
-from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 @pytest.fixture
@@ -38,3 +39,12 @@ def find_by():
         }
         return location[find_by]
     return do_find_by
+
+
+@pytest.fixture
+def wait_for(get_webdriver):
+    def do_wait_for(element):
+        driver = get_webdriver
+        wait = WebDriverWait(driver, 3, 0.3)
+        return wait.until(ec.visibility_of_element_located(element))
+    return do_wait_for
