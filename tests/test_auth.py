@@ -40,7 +40,7 @@ class TestRegistration:
         password = wait_for((selector, 'id_password'))
         password2 = wait_for((selector, 'id_password2'))
 
-        username.send_keys('Test User 2')
+        username.send_keys('test_user_1')
         email.send_keys('test@example.com')
         password.send_keys('test_123password')
         password2.send_keys('test_123password')
@@ -121,18 +121,17 @@ class TestLogin:
         username = wait_for((selector, 'username'))
         password = wait_for((selector, 'password'))
 
-        username.send_keys('Test User 2')
+        username.send_keys('test_user_1')
         password.send_keys('rty123QWE')
 
         button_selector = find_by('tag')
         login = wait_for((button_selector, 'button'))
         login.click()
 
-        assert driver.title == 'Sign In'
-        assert driver.current_url == 'http://localhost:8000/login/'
-        assert currently_logged_in_user
+        assert driver.title == 'Home'
+        assert driver.current_url == 'http://localhost:8000/'
 
-    @pytest.mark.django_db
+    @ pytest.mark.django_db
     def test_login_user_doesnt_exist(self, get_webdriver, find_by, wait_for):
         driver = get_webdriver
         driver.get('http://localhost:8000/login/')
@@ -156,5 +155,19 @@ class TestLogin:
 
 
 class TestLogout:
-    def test_logout_user(self, get_webdriver, find_by, wait_for):
-        pass
+    def test_logout_user(self, get_webdriver, find_by, wait_for, login_user):
+        driver = get_webdriver
+
+        assert driver.current_url == 'http://localhost:8000/'
+
+        profile_selector = find_by('xpath')
+        driver.execute_script(
+            "arguments[0].click();", driver.find_element((profile_selector, '/html/body/header/div/div[2]/img')))
+
+        logout_selector = find_by('xpath')
+        logout = wait_for(
+            (logout_selector, '/html/body/header/div/div[2]/div/ul/li[2]/a'))
+        logout.click()
+
+        assert driver.title == 'Sign In'
+        assert driver.current_url == 'http://localhost:8000/login/'

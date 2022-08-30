@@ -48,3 +48,19 @@ def wait_for(get_webdriver):
         wait = WebDriverWait(driver, 3, 0.3)
         return wait.until(ec.visibility_of_element_located(element))
     return do_wait_for
+
+
+@pytest.fixture
+def login_user(get_webdriver, find_by, wait_for):
+    driver = get_webdriver
+    driver.get('http://localhost:8000/login/')
+    selector = find_by('id')
+    username = wait_for((selector, 'username'))
+    password = wait_for((selector, 'password'))
+
+    username.send_keys('test_user_1')
+    password.send_keys('rty123QWE')
+
+    button_selector = find_by('tag')
+    login = wait_for((button_selector, 'button'))
+    login.click()
