@@ -3,9 +3,6 @@ from model_bakery import baker
 from mainapp.models import Post
 
 
-"""Порядок тестов менять нельзя (1:get, 2:create, 3:update, 4:delete)"""
-
-
 class TestGetPost:
     @pytest.mark.django_db
     def test_get_all_posts(self, get_webdriver, login_user):
