@@ -195,21 +195,65 @@ input[type="password"]::placeholder {
   position: absolute;
 }
 
-.form-group {
+.register-form {
   position: relative;
   margin-left: 35%;
-  margin-top: 20px;
-  width: 50%;
-  height: 45px;
-  border-radius: 8px;
+  margin-top: 10vh;
   border: none;
+  font-size: 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333333;
+  font-weight: 700;
 }
+
+.sign-up-header{
+  position: absolute;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  font-weight: inherit;
+}
+
+
+#id_username{
+  position: absolute;
+  margin-top: 10vh;
+}
+
+#id_email{
+  position: absolute;
+  margin-top: 20vh;
+}
+
+#id_password{
+  position: absolute;
+  margin-top: 30vh;
+}
+
+#id_password2{
+  position: absolute;
+  margin-top: 40vh;
+}
+
 
 .form-control {
   position: absolute;
+  background-color: white;
+  width: 25vw;
+  margin-top: 85px;
+  height: 6vh;
+  border-radius: 8px;
   border: none;
-  background: white;
+  display: block;
+}
+
+.register-button{
+  position: absolute;
+  margin-top: 50vh;
 }
 
 .error-message {
+  font-size: 15px;
+  font-family: 'Courier New', Courier, monospace;
+  color: rgba(255, 0, 0, 0.6);
 }

@@ -17,7 +17,8 @@
       <a href="/login/" class="change-link">Log in</a>
     </div>
     <!-- content-->
-    <h1 class="header">Sign Up</h1>
+    <div class="register-form">
+    <h1 class="sign-up-header">Sign Up</h1>
 
     {% csrf_token %}
 
@@ -27,14 +28,15 @@
 
     {% for field in form.visible_fields %}
       <div class="form-group">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         {{ field|add_class:'form-control'}}
         {% for error in field.errors %}
           <span class="error-message">{{ error }}</span>
         {% endfor %}
       </div>
-    {% endfor %}
-      <button type="submit">Sign Up</button>
+      {% endfor %}
     </form>
+    <button type="submit" class="register-button">Sign Up</button>
+  </div>
   </body>
 </html>
+

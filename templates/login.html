@@ -19,7 +19,12 @@
     <div class="login-form"
       <h1 class="header">Log in</h1>
 
+       {% for message in messages %} 
+        <h5 class="error-message">{{message}}</h5>
+       {% endfor %} 
+
       <form action="" method="post">
+        {% csrf_token %}
           <input
           type="text"
           name="username"

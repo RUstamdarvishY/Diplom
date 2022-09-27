@@ -9,11 +9,15 @@ logger = logging.getLogger(__name__)
 
 
 class UserForm(forms.Form):
-    username = forms.CharField(label='Username', min_length=1, max_length=255)
-    email = forms.EmailField(label='Email')
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    username = forms.CharField(label='Username', min_length=1, max_length=255,
+                               widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    email = forms.EmailField(label='Email', widget=forms.TextInput
+                             (attrs={'placeholder': 'Email'}))
+    password = forms.CharField(label='Password', widget=forms.PasswordInput
+                               (attrs={'placeholder': 'Password'}))
     password2 = forms.CharField(
-        label='Confirm password', widget=forms.PasswordInput)
+        label='Confirm password', widget=forms.PasswordInput
+        (attrs={'placeholder': 'Confirm Password'}))
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
