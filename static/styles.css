@@ -253,7 +253,6 @@ input[type="password"]::placeholder {
   margin-top: 20vh;
 }
 
-
 #id_profile_picture {
   position: absolute;
   margin-left: 13%;
@@ -272,12 +271,19 @@ input[type="password"]::placeholder {
   margin-top: 47vh;
 }
 
-.profile-picture-label{
+.profile-picture-label {
   position: absolute;
   font-size: initial;
   font-weight: initial;
   font-family: initial;
   margin-top: 30vh;
+}
+.post-image-label{
+  position: absolute;
+  font-size: initial;
+  font-weight: initial;
+  font-family: initial;
+  margin-top: 53vh;
 }
 
 .form-control {
@@ -300,8 +306,32 @@ input[type="password"]::placeholder {
   margin-top: 57vh;
 }
 
+.upload-post-button {
+  position: absolute;
+  margin-top: 60vh;
+}
 .error-message {
   font-size: 15px;
   font-family: "Courier New", Courier, monospace;
   color: rgba(255, 0, 0, 0.6);
+}
+
+#id_title {
+  position: absolute;
+  margin-top: 10vh;
+}
+#id_text {
+  position: absolute;
+  height: 30vh;
+  margin-top: 20vh;
+  resize: none;
+}
+#id_image {
+  position: absolute;
+  margin-left: 10%;
+  margin-top: 53vh;
+  background: transparent;
+  width: 7%;
+  height: 22px;
+  border: none;
 }

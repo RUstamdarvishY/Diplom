@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} {% load widget_tweaks %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,15 +16,25 @@
     </div>
     <!-- content-->
 
-    <h1 class="header">Upload Post</h1>
-    <form enctype="multipart/form-data" method="POST">
-      {% csrf_token %} {% for field in form %} {% for error in form.user.errors
-      %}
-
-      <p>{{ error }}</p>
-
-      {% endfor %} {% endfor %} {{form.as_p}}
-      <button type="submit">Upload Post</button>
-    </form>
+    <div class="create-profile-form">
+      <p class="post-image-label">Post image:</p>
+      <h1 class="sign-up-header">Upload post</h1>
+      <form action="" method="post">
+      {% csrf_token %}
+  
+      {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+  
+      {% for field in form.visible_fields %}
+        <div class="form-group">
+          {{ field|add_class:'form-control'}}
+          {% for error in field.errors %}
+            <span class="error-message">{{ error }}</span>
+          {% endfor %}
+          <button type="submit" class="upload-post-button">Upload post</button> 
+        </div>
+        {% endfor %}
+      </form>
   </body>
 </html>
