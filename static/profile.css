@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Abyssinica+SIL&family=Dangrek&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap");
+
+* {
+  background-color: #b0b3b8;
+  margin: 0px;
+  padding: 0px;
+}
+.top-bar {
+  width: 100%;
+  height: 45px;
+  background-color: white;
+  border-bottom: solid 2px grey;
+  position: relative;
+}
+
+.username {
+  position: absolute;
+  font-family: "Abyssinica SIL", serif;
+  font-size: 23px;
+  left: 80%;
+  top: 5px;
+  background-color: inherit;
+}
+
+.home-link {
+  position: absolute;
+  left: 5%;
+  top: 7px;
+  font-size: 17px;
+  font-family: "Abyssinica SIL", serif;
+  text-decoration: none;
+  color: white;
+  background: black;
+  padding: 3px;
+  border-radius: 5px;
+  transition-property: transform;
+  transition-duration: 1s;
+}
+
+.home-link:hover {
+  transform: scale(1.2);
+}
+
+.background {
+  position: relative;
+  left: 0;
+  top: 0;
+}
+
+.background-image {
+  position: absolute;
+  width: 100vw;
+  height: 43vh;
+  z-index: 0;
+}
+
+.user-avatar {
+  position: absolute;
+  left: 4vw;
+  top: 23vh;
+  width: 0px;
+  height: 0px;
+  z-index: 1;
+  border: 4px;
+}
+
+.number-of-posts {
+  position: absolute;
+  top: 39vh;
+  left: 20vw;
+  background: transparent;
+  color: white;
+  font-family: "Abyssinica SIL", serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.change-profile {
+  position: absolute;
+  top: 38vh;
+  left: 80vw;
+  text-decoration: none;
+  color: black;
+  background: transparent;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.update-profile {
+  text-decoration: inherit;
+  color: inherit;
+  background: #ffc0cb;
+  padding: inherit;
+  border-radius: inherit;
+}
+
+.update-profile:hover {
+  background: #73989e;
+  transition: 1s;
+}
+
+.delete-profile {
+  margin-left: 30px;
+  text-decoration: inherit;
+  color: inherit;
+  background: #ffc0cb;
+  padding: inherit;
+  border-radius: inherit;
+}
+
+.delete-profile:hover {
+  background: #73989e;
+  transition: 1s;
+}
+
+.user-info {
+  position: relative;
+  top: 45vh;
+  left: 20vw;
+  font-family: "Abyssinica SIL", serif;
+  font-size: 18px;
+}
+
+.user-name {
+  position: absolute;
+  top: 0vh;
+}
+.user-surname {
+  position: absolute;
+  top: 3vh;
+}
+.user-bio {
+  position: absolute;
+  top: 6vh;
+}
+.user-location {
+  position: absolute;
+  top: 9vh;
+}

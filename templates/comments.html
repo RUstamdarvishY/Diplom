@@ -2,56 +2,21 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="{% static 'assets/images/favicon.png' %}"
-      rel="icon"
-      type="image/png"
-    />
-    <title>Sign In</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/uikit.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}" />
-  </head>
-
-  <body class="bg-gray-100">
-    <div id="wrapper" class="flex flex-col justify-between h-screen">
-      <div class="bg-white py-4 shadow dark:bg-gray-800">
-        <div class="max-w-6xl mx-auto">
-          <div class="flex items-center lg:justify-between justify-around">
-            <a href="#">
-              <b><h1 style="font-size: 1.5rem">Add Comment</h1></b>
-            </a>
-            <div
-              class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm"
-            >
-
-
-        <div class="border-t pt-4 space-y-4 ">
-        </div>
-    </div>
-</div>
-<div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative">
-  <form action="" method="POST">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/styles.css" />
+  <title>Comment</title>
+</head>
+  <body>
+  <div class="bar">
+   <h1 class="add-comment">Add Comment</h1>
+  
+    <form action="" method="POST" class="comment-form">
     {% csrf_token %} {{form.as_p}}
-    <br>
-<div
-    class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2"
-></div>
-<button type="submit" class="button bg-blue-700"> Add Comment </button>
-</div>
-
-    <!-- Scripts
-    ================================================== -->
-    <script src="{% static 'assets/js/tippy.all.min.js' %}"></script>
-    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'assets/js/uikit.js' %}"></script>
-    <script src="{% static 'assets/js/simplebar.js' %}"></script>
-    <script src="{% static 'assets/js/custom.js' %}"></script>
+    
+    <button type="submit" class="comment">Add Comment</button>
+  </div>
   </body>
 </html>

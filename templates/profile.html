@@ -2,146 +2,64 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <title>Profile {{user.username}}</title>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/profile.css" />
+  <title>Profile</title>
+</head>
+<body>   
+  <!--header -->
+  <div class="top-bar">
+    <a href="/" class="home-link">Home</a>
+    <span class="username">{{user.username}}</span>
+  </div>
 
-    <link rel="stylesheet" href="{% static 'css/main.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/color.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
-  </head>
-  <body>
-    <div class="theme-layout"></div>
+  <div class="background">
+    <img src="/static/images/profile-background.jpg" alt="no image" class="background-image" />
 
-    <section>
-      <div class="feature-photo">
-        <figure>
-          <img src="{% static 'images/profile-background.jpg' %}" alt="" />
-        </figure>
-         <form>
-          <div class="add-btn">
-            <span style="color: white; font-size: 27px; margin-right: 400px"
-              ><b
-                ><u><a href="/">Home</a></u></b
-              ></span
-            > 
-            <span style="color: white; font-size: 27px"><b>{{user.username}}</b></span>
-            <span style="color: white; font-size: 27px"
-              >Number of posts:  <b>{{number_of_posts}}</b></span>
-            
-            <a href="/update_profile/" style="background-color: #ffc0cb; border: #ffc0cb">
-                <b style="color: grey">update profile</b>
-            </a>
-          </div>
-        </form enctype="multipart/form-data">
-        <div class="container-fluid">
-          <div class="row merged">
-            <div class="col-lg-2 col-sm-3">
-              <div class="user-avatar">
-                <figure>
-                  {% if profile.profile_picture %}
-                  <img
-                    src="{{profile.profile_picture.url}}"
-                    style="height: 250px; width: 100%"
-                    alt="">
-                  {% else %}
-                  <img
-                    src="{% static 'images/blank-profile-picture.png' %}"
-                    style="height: 250px; width: 100%"
-                    alt="">
-                  {% endif %}
-                  
-                    </label>
-                  </form>
-                </figure>
-              </div>
-            </div>
-            <div class="col-lg-10 col-sm-9">
-              <div class="timeline-info">
-                <ul>
-                  <li class="admin-name">
-                    <h5
-                      style="
-                        color: black;
-                        white-space: nowrap;
-                        width: 110px;
-                        font-size: 27px;
-                      "
-                    ></h5>
-                    <!--<span>Group Admin</span>-->
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+      <span class="number-of-posts">Number of posts: {{number_of_posts}}</span>
+      <div class="user-avatar">
+        {% if %}
+        <!-- {% if profile.profile_picture %}
+          <img src="{{profile.profile_picture.url}}" alt="no image">
+        {% else %} -->
+          <img src="/static/images/blank-profile-picture.png" alt="no image" width="220px" height="230px" style="border-radius: 10px; border: 3px solid #4a82fe">
+        {% endif %}
       </div>
-    </section>
+      <div class="change-profile">
+        <a href="/update_profile/" class="update-profile">update profile</a>
+        <a href="/delete_profile/" class="delete-profile">delete profile</a>
+      </div>
+  </div>
     
-    <!-- top area -->
-    <div>
-    <span class="block capitalize font-semibold">Name:   <b>{{profile.firstname}}</b></span>
-    </div>
-    <div>
-    <span class="block capitalize font-semibold">Surname:   <b>{{profile.lastname}}</b></span>
-    </div>
-    <div>
-    <span class="block capitalize font-semibold">Bio:   <b>{{profile.bio}}</b></span>
-    </div>
-    <div>
-    <span class="block capitalize font-semibold">Location:   <b>{{profile.location}}</b></span>
+<!-- user info -->
+    <div class="user-info">
+      <span class="user-name">Name: <b>{{profile.firstname}}</b></span>
+  
+      <span class="user-surname">Surname: <b>{{profile.lastname}}</b></span>
+  
+      <span class="user-bio">Bio: <b>{{profile.bio}}</b></span>
+  
+      <span class="user-location">Location: <b>{{profile.location}}</b></span>
     </div>
 
-
-    <div>
-    <a href="/delete_profile/" style="background-color: #ffc0cb; border: #ffc0cb"><b>delete profile</b></a>
-    </div>
-
-
-    <div class="container m-auto">
-              {% for p in posts %}
-
-                    <!-- left sidebar-->
-                    <div class="space-y-5 flex-shrink-5 lg:w-7/20">
-
-                        <div class="bg-white shadow rounded-md  -mx-2 lg:mx-0">
-    
-                            <!-- post -->
-                                <h2><strong>{{p.title}}</strong></h2>
-                                
-                                
-                                {% if p.image %}
-                                <img src="{{p.image.url}}"></img>
-                                {% else %}
-                                <h5>No Image</h5>
-                                {% endif %} 
-                    
-
-                                <h5>{{p.text}}</h5>
-
-                                <p>{{p.created_at}}</p>
-                                <div class="">
-                                  <strong>{{p.number_of_likes}}</strong> likes and<strong>
-                                      {{p.comments.count}}</strong> comments
-                                      <a href="/update_post?post_id={{p.pk}}" class="flex items-center space-x-2"  style="background-color: pink; border: #ffc0cb">  <b  style="color:grey">update post</b></a>
-                                      
-                                      <a href="/delete_post?post_id={{p.pk}}" class="flex items-center space-x-2"  style="background-color: pink; border: #ffc0cb">  <b  style="color:grey">delete post</b></a>
-
-                                      <hr>
-                                    </div>  
-                                  </div>
-                                 
-                            
-                                  {% endfor %}
-    <script
-      data-cfasync="false"
-      src="{% static '../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %}"
-    ></script>
-    <script src="js/main.min.js"></script>
-    <script src="{% static 'js/script.js' %}"></script>
+<!-- posts -->
+   {% for p in posts %} 
+    <h2><strong>{{p.title}}</strong></h2>
+      {% if p.image %}
+        <img src="{{p.image.url}}"></img>
+      {% else %}
+        <h5>No Image</h5>
+      {% endif %} 
+    <h5>{{p.text}}</h5>
+    <p>{{p.created_at}}</p>
+    <strong>{{p.number_of_likes}}</strong> likes and<strong> 
+          
+    {{p.comments.count}}</strong> comments
+      <a href="/update_post?post_id={{p.pk}}" class="change-post">update post</a>    
+      <a href="/delete_post?post_id={{p.pk}}" class="change-post">delete post</a>
+    {% endfor %}
   </body>
-</html>
+</html>  
