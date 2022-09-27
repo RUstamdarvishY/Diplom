@@ -62,13 +62,14 @@ class UserForm(forms.Form):
 
 class ProfileForm(forms.ModelForm):
     firstname = forms.CharField(label='firstname', min_length=1, max_length=255,
-                               widget=forms.TextInput(attrs={'placeholder': 'Firstname'}))
+                                widget=forms.TextInput(attrs={'placeholder': 'Firstname'}))
     lastname = forms.CharField(label='Lastname', min_length=1, max_length=255,
                                widget=forms.TextInput(attrs={'placeholder': 'Lastname'}))
     location = forms.CharField(label='Location', min_length=1, max_length=255,
                                widget=forms.TextInput(attrs={'placeholder': 'Location'}))
     bio = forms.CharField(label='Bio', min_length=1, max_length=255,
-                               widget=forms.TextInput(attrs={'placeholder': 'Bio'}))
+                          widget=forms.TextInput(attrs={'placeholder': 'Bio'}))
+
     class Meta:
         model = Profile
         fields = ('firstname', 'lastname',
@@ -82,6 +83,13 @@ class UpdateProfileForm(forms.ModelForm):
 
 
 class UpdatePostForm(forms.ModelForm):
+    title = forms.CharField(widget=forms.TextInput(
+        attrs={'id': 'update-post-title'}))
+    text = forms.CharField(widget=forms.Textarea(
+        attrs={'id': 'update-post-text'}))
+    image = forms.CharField(widget=forms.FileInput(
+        attrs={'id': 'update-post-image'}))
+
     class Meta:
         model = Post
         fields = ('title', 'text', 'image')

@@ -325,7 +325,6 @@ input[type="password"]::placeholder {
   font-weight: 700;
 }
 
-
 .add-comment {
   position: absolute;
   left: 12%;
@@ -355,7 +354,7 @@ input[type="password"]::placeholder {
   transform: none;
 }
 
-.text-label{
+.text-label {
   position: absolute;
   left: 12%;
   top: 8%;
@@ -367,11 +366,62 @@ input[type="password"]::placeholder {
   letter-spacing: -0.04cm;
 }
 
-#id_comment_text{
+#id_comment_text {
   position: absolute;
   height: 30vh;
   width: 45vw;
   resize: none;
   border: 3px solid #be185d;
   background: rgba(224, 224, 224, 0.5);
+}
+
+.update-post-button {
+  position: absolute;
+  left: 62%;
+  top: 25vh;
+  font-size: 20px;
+  width: 70px;
+  height: 35px;
+  border-radius: 6px;
+  color: white;
+  border: none;
+  background: #be185d;
+}
+
+.update-post-button:hover {
+  transform: none;
+}
+
+#update-post-title {
+  position: absolute;
+  margin-top: -3vh;
+  margin-left: 5vw;
+  width: 40vw;
+}
+#update-post-text {
+  position: absolute;
+  margin-top: 7vh;
+  margin-left: 5vw;
+  width: 40vw;
+  height: 35vh;
+  resize: none;
+}
+#update-post-image {
+  margin-left: 19%;
+  margin-top: 45vh;
+  background: transparent;
+  width: 7%;
+  height: 22px;
+  border: none;
+}
+
+.update-post-image-label {
+  position: absolute;
+  left: 5vw;
+  top: 45vh;
+  background: transparent;
+  font-size: 15px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333333;
+  font-weight: 500;
 }

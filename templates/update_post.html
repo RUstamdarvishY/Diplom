@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} {% load widget_tweaks %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,14 +15,24 @@
     <hr class="separator" />
     <!-- content -->
     <h1 class="update">Update post</h1>
-    <form enctype="multipart/form-data" method="POST">
-      {% csrf_token %} {% for field in form %} {% for error in form.user.errors
-      %}
-      <p>{{ error }}</p>
-
-      {% endfor %} {% endfor %} {{form}}
-
-      <button type="submit" class="save">Save</button>
-    </form>
+    <div class="create-profile-form">
+      <p class="update-post-image-label">Update image:</p>
+      <form action="" enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+  
+      {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+  
+      {% for field in form.visible_fields %}
+        <div class="form-group">
+          {{ field|add_class:'form-control'}}
+          {% for error in field.errors %}
+            <span class="error-message">{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="update-post-button">Save</button>
+      </form>
   </body>
 </html>
