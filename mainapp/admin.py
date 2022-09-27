@@ -23,8 +23,8 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['author', 'commented_at', 'text']
-    list_editable = ['text']
+    list_display = ['author', 'commented_at', 'comment_text']
+    list_editable = ['comment_text']
     list_display_links = ['author']
     list_per_page = 5
     ordering = ['commented_at']

@@ -167,34 +167,6 @@ input[type="password"]::placeholder {
   font-family: inherit;
 }
 
-.bar {
-  position: relative;
-  width: 100%;
-  height: 50vh;
-  background: white;
-}
-
-.add-comment {
-  position: absolute;
-  background: inherit;
-}
-
-.comment {
-  position: absolute;
-  font-size: 15px;
-  font-weight: 500;
-  width: 150px;
-  height: 35px;
-  border-radius: 6px;
-  color: white;
-  border: none;
-  background: #be185d;
-}
-
-.comment-form {
-  position: absolute;
-}
-
 .register-form {
   position: relative;
   margin-left: 35%;
@@ -278,7 +250,7 @@ input[type="password"]::placeholder {
   font-family: initial;
   margin-top: 30vh;
 }
-.post-image-label{
+.post-image-label {
   position: absolute;
   font-size: initial;
   font-weight: initial;
@@ -334,4 +306,72 @@ input[type="password"]::placeholder {
   width: 7%;
   height: 22px;
   border: none;
+}
+
+.bar {
+  width: 100vw;
+  height: 55vh;
+  background: white;
+}
+
+.comment-form {
+  position: absolute;
+  margin-left: 12%;
+  margin-top: 2vh;
+  box-sizing: border-box;
+  font-size: 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333333;
+  font-weight: 700;
+}
+
+
+.add-comment {
+  position: absolute;
+  left: 12%;
+  top: 3%;
+  background: transparent;
+  font-size: 25px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333333;
+  font-weight: 700;
+}
+
+.comment-button {
+  position: absolute;
+  left: 12%;
+  top: 28%;
+  font-size: 15px;
+  font-weight: 500;
+  width: 150px;
+  height: 35px;
+  border-radius: 6px;
+  color: white;
+  border: none;
+  background: #be185d;
+}
+
+.comment-button:hover {
+  transform: none;
+}
+
+.text-label{
+  position: absolute;
+  left: 12%;
+  top: 8%;
+  background: transparent;
+  color: #333333;
+  font-weight: 500;
+  font-size: 17px;
+  font-family: "Courier New", Courier, monospace;
+  letter-spacing: -0.04cm;
+}
+
+#id_comment_text{
+  position: absolute;
+  height: 30vh;
+  width: 45vw;
+  resize: none;
+  border: 3px solid #be185d;
+  background: rgba(224, 224, 224, 0.5);
 }

@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} {% load widget_tweaks %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,12 +11,27 @@
 </head>
   <body>
   <div class="bar">
-   <h1 class="add-comment">Add Comment</h1>
-  
-    <form action="" method="POST" class="comment-form">
-    {% csrf_token %} {{form.as_p}}
-    
-    <button type="submit" class="comment">Add Comment</button>
+    <h1 class="add-comment">Add Comment</h1>
+    <p class="text-label">Text:</p>
+  <div class="comment-form">
+  <form action="" method="post">
+    {% csrf_token %}
+
+    {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+
+    {% for field in form.visible_fields %}
+      <div class="form-group">
+        {{ field|add_class:'form-control'}}
+        {% for error in field.errors %}
+          <span class="error-message">{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </form>
+  </div>
+  <button type="submit" class="comment-button">Add Comment</button>
   </div>
   </body>
 </html>
