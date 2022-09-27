@@ -205,8 +205,18 @@ input[type="password"]::placeholder {
   color: #333333;
   font-weight: 700;
 }
+.create-profile-form {
+  position: relative;
+  margin-left: 35%;
+  margin-top: 10vh;
+  border: none;
+  font-size: 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333333;
+  font-weight: 700;
+}
 
-.sign-up-header{
+.sign-up-header {
   position: absolute;
   font-size: inherit;
   font-family: inherit;
@@ -214,27 +224,61 @@ input[type="password"]::placeholder {
   font-weight: inherit;
 }
 
-
-#id_username{
+#id_username {
   position: absolute;
   margin-top: 10vh;
 }
 
-#id_email{
+#id_email {
   position: absolute;
   margin-top: 20vh;
 }
 
-#id_password{
+#id_password {
   position: absolute;
   margin-top: 30vh;
 }
 
-#id_password2{
+#id_password2 {
   position: absolute;
   margin-top: 40vh;
 }
 
+#id_firstname {
+  position: absolute;
+  margin-top: 10vh;
+}
+#id_lastname {
+  position: absolute;
+  margin-top: 20vh;
+}
+
+
+#id_profile_picture {
+  position: absolute;
+  margin-left: 13%;
+  margin-top: 30vh;
+  background: transparent;
+  width: 7%;
+  height: 22px;
+  border: none;
+}
+#id_bio {
+  position: absolute;
+  margin-top: 37vh;
+}
+#id_location {
+  position: absolute;
+  margin-top: 47vh;
+}
+
+.profile-picture-label{
+  position: absolute;
+  font-size: initial;
+  font-weight: initial;
+  font-family: initial;
+  margin-top: 30vh;
+}
 
 .form-control {
   position: absolute;
@@ -247,13 +291,17 @@ input[type="password"]::placeholder {
   display: block;
 }
 
-.register-button{
+.register-button {
   position: absolute;
   margin-top: 50vh;
+}
+.create-profile-button {
+  position: absolute;
+  margin-top: 57vh;
 }
 
 .error-message {
   font-size: 15px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   color: rgba(255, 0, 0, 0.6);
 }

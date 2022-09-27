@@ -61,6 +61,14 @@ class UserForm(forms.Form):
 
 
 class ProfileForm(forms.ModelForm):
+    firstname = forms.CharField(label='firstname', min_length=1, max_length=255,
+                               widget=forms.TextInput(attrs={'placeholder': 'Firstname'}))
+    lastname = forms.CharField(label='Lastname', min_length=1, max_length=255,
+                               widget=forms.TextInput(attrs={'placeholder': 'Lastname'}))
+    location = forms.CharField(label='Location', min_length=1, max_length=255,
+                               widget=forms.TextInput(attrs={'placeholder': 'Location'}))
+    bio = forms.CharField(label='Bio', min_length=1, max_length=255,
+                               widget=forms.TextInput(attrs={'placeholder': 'Bio'}))
     class Meta:
         model = Profile
         fields = ('firstname', 'lastname',

@@ -16,8 +16,8 @@ class Profile(models.Model):
                                             validate_file_size, allowed_extention],
                                         null=True, blank=True)
     location = models.CharField(
-        max_length=255, default='-', null=True, blank=True)
-    bio = models.CharField(max_length=255, default='-', null=True, blank=True)
+        max_length=255, default='', null=True, blank=True)
+    bio = models.CharField(max_length=255, default='', null=True, blank=True)
     user = models.ForeignKey(user, on_delete=models.CASCADE)
 
     def __str__(self):
