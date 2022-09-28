@@ -20,7 +20,7 @@
   background-color: inherit;
   font-family: "Pacifico", cursive;
 }
-.upload-post{
+.upload-post {
   position: absolute;
   top: 20%;
   left: 85%;
@@ -39,15 +39,148 @@
   border-radius: 6px;
 }
 
-.upload-post:hover{
+.upload-post:hover {
   background: #db2777;
   transition: 0.5s;
 }
 
-.corner-avatar{
+.corner-avatar {
   position: absolute;
   left: 95%;
   top: 23%;
   width: 0;
   height: 0;
 }
+
+.posts {
+  position: absolute;
+  left: 15vw;
+  top: 20vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 1vh;
+  grid-auto-columns: minmax(30vh auto);
+}
+
+.post {
+  padding: 12px;
+  background: white;
+  border: 2px solid #be185d;
+  border-radius: 7px;
+  width: 70vw;
+  margin-bottom: 10vh;
+}
+
+.post-author {
+  position: relative;
+  background: white;
+  overflow: hidden;
+  font-size: 30px;
+}
+
+#post-author {
+  position: absolute;
+  top: 2px;
+  left: 40px;
+  background: white;
+  text-decoration: none;
+  color: #333333;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.post-title {
+  background: white;
+  overflow: hidden;
+  font-size: 25px;
+  font-family: "Abyssinica SIL", serif;
+}
+
+.post-image {
+  background: white;
+}
+
+.no-image {
+  background: white;
+  font-weight: 500;
+}
+
+.post-text {
+  background: white;
+  margin-top: 15px;
+}
+
+.post-text > p {
+  background: white;
+}
+
+.post-created-at {
+  margin-top: 15px;
+  background: white;
+}
+.post-created-at > h4 {
+  background: white;
+}
+
+.icons {
+}
+
+.like-icon {
+}
+
+.comment-icon {
+}
+
+.number-of-likes-and-comments {
+  margin-top: 15px;
+  background: white;
+}
+
+.number-of-likes-and-comments > p {
+  background: white;
+  font-weight: 500;
+}
+.number-of-likes-and-comments > p > b {
+  background: white;
+}
+
+.no-comments-label {
+  background: white;
+  font-size: 15px;
+  color: #333333;
+}
+
+.comments {
+}
+
+.comment-author {
+}
+
+.comment-text {
+}
+
+.comment-created-at {
+}
+
+.pagination {
+  display: inline;
+  text-align: center;
+}
+
+
+.pagination-button{
+  letter-spacing: 0.1mm;
+  color: black;
+  padding: 8px 16px;
+  float: left;
+  text-decoration: none;
+  background: transparent;
+  transition-property: background;
+  transition-duration: 0.5s;
+}
+
+.pagination-button:hover{
+  background: rgba(219, 39, 119, 0.65);
+}
+

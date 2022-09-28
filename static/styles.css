@@ -130,7 +130,7 @@ input[type="password"]::placeholder {
   color: black;
 }
 .home-link:hover {
-  text-shadow: ;
+  text-shadow: 2px 3px 2px rgba(255, 255, 255, 0.8);
 }
 
 .separator {

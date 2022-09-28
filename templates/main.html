@@ -16,12 +16,12 @@
       <a href="/create_post/" class="upload-post">Upload Post</a>
       <!--dropdown -->
        <div class="corner-avatar">
-      <!-- {% if user_image.profile_picture %}
+      {% if user_image.profile_picture %}
         <img src="{{user_image.profile_picture.url}}" class="header-avatar" alt="">
-        {% else %} -->
+        {% else %} 
             <img src="/static/images/blank-profile-picture.png" class="header-avatar" alt="" style="width: 35px; height: 35px; border-radius: 50%">
         </div>
-        <!-- {% endif %} -->
+        {% endif %} 
         <select>
                 <div class="dropdown">
                 <ul>
@@ -36,48 +36,57 @@
         </select>
     </div>
   <!--content  -->
-  {% for p in posts %} 
-    <a href="/profile?user_pk={{p.author.pk}}" class="">{{p.author}}</a>
-    
-    <h2><strong>{{p.title}}</strong></h2>
-    {% if p.image %}
-      <img src="{{p.image.url}}"></img>
-    {% else %}
-      <p>No Image</p>
-    {% endif %} 
-    <h1>{{p.text}}</h1>
-    <h1>{{p.created_at}}</h1>
-    
-    <!--icons-->
-    <a href="/like_post?post_id={{p.pk}}" class="">like</a>
-
-    <a href="/comment/?post_id={{p.pk}}" class="">comment</a>
-
-    <!--likes and comments  -->
-        <strong>{{p.number_of_likes}}</strong> 
-        likes and<strong>{{p.comments.count}}</strong> comments
-
-        <hr>
+  <div class="posts">
+    {% for p in posts %}
+      <div class="post"> 
+        <div class="post-author">
+          {% if user_image.profile_picture %}
+            <img src="{{user_image.profile_picture.url}}" class="header-avatar" alt="">
+          {% else %} 
+            <img src="/static/images/blank-profile-picture.png" class="post-avatar" alt="" style="width: 25px; height: 25px; border-radius: 50%">
+          {% endif %} 
+          <a href="/profile?user_pk={{p.author.pk}}" id="post-author">{{p.author}}</a>
+        </div> 
+        <h2 class="post-title">{{p.title}}</h2>
+        {% if p.image %}
+          <img src="{{p.image.url}}" class="post-image" 
+          width="200px" height="200px"></img>
+        {% else %}
+          <h5 class="no-image">No Image</h5>
+        {% endif %} 
+        <div class="post-text"> 
+          <p>{{p.text}}</p>
+        </div>
+        <div class="post-created-at">
+          <h4>{{p.created_at}}</h4>
+        </div>
+        <div class="icons">
+          <a href="/like_post?post_id={{p.pk}}" class="">like</a>
+          <a href="/comment/?post_id={{p.pk}}" class="">comment</a>
+        </div>
+        <div class="number-of-likes-and-comments">
+          <p><b>{{p.number_of_likes}}</b> likes and <b>{{p.comments.count}}</b> comments</p>
+        </div>
         {% if not p.comments.all %}
-          <h2>No comments</h2>
+          <h2 class="no-comments-label">No comments</h2>
         {% else %}
         {% for comment in p.comments.all %}
-          <br>
-          <strong>{{comment.author}}</strong>
-          <br>
-          <h2>{{comment.text}}</h2>
-          <p class="">{{comment.commented_at}}</p>
-          <hr>
+        <div class="comments">
+          <strong class="comment-author">{{comment.author}}</strong>
+          <h2 class="comment-text">{{comment.text}}</h2>
+          <p class="comment-created-at">{{comment.commented_at}}</p>
+        </div>
         {% endfor %}
-        {% endif %}     
+        {% endif %}  
+        </div>  
     {% endfor %}
-                
+    </div>           
     <!--pagination -->
-    <ul>
+    <div class="pagination">
         {% for p in paginator.page_range %}
-        <a href="?page={{ p }}">{{ p }}</a>
+          <a href="?page={{ p }}" class="pagination-button">{{ p }}</a>
         {% endfor %}
-    </ul>
+  </div>
   </body>
 </html>
 
