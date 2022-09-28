@@ -155,7 +155,10 @@ input[type="password"]::placeholder {
   position: relative;
   top: 180px;
   left: 270px;
-  font-family: "Abyssinica SIL", serif;
+  color: #333333;
+  font-size: 20px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .username {
@@ -424,4 +427,66 @@ input[type="password"]::placeholder {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #333333;
   font-weight: 500;
+}
+
+#update-profile-firstname {
+  position: absolute;
+  margin-top: -4vh;
+  margin-left: 5vw;
+  width: 40vw;
+}
+
+#update-profile-lastname {
+  position: absolute;
+  margin-top: 6vh;
+  margin-left: 5vw;
+  width: 40vw;
+}
+
+#update-profile-picture {
+  margin-left: 16vw;
+  margin-top: 16vh;
+  background: transparent;
+  width: 7%;
+  height: 22px;
+  border: none;
+}
+#update-profile-location {
+  position: absolute;
+  margin-top: 26vh;
+  margin-left: 5vw;
+  width: 40vw;
+}
+
+#update-profile-bio {
+  position: absolute;
+  margin-top: 36vh;
+  margin-left: 5vw;
+  width: 40vw;
+}
+.update-profile-picture-label {
+  position: absolute;
+  left: 5vw;
+  top: 16vh;
+  background: transparent;
+  font-size: 15px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333333;
+  font-weight: 500;
+}
+
+.update-profile-button {
+  position: absolute;
+  left: 62%;
+  top: 25vh;
+  font-size: 20px;
+  width: 70px;
+  height: 35px;
+  border-radius: 6px;
+  color: white;
+  border: none;
+  background: #be185d;
+}
+.update-profile-button:hover {
+  transform: none;
 }

@@ -77,9 +77,21 @@ class ProfileForm(forms.ModelForm):
 
 
 class UpdateProfileForm(forms.ModelForm):
+    firstname = forms.CharField(widget=forms.TextInput(
+        attrs={'id': 'update-profile-firstname'}))
+    lastname = forms.CharField(widget=forms.TextInput(
+        attrs={'id': 'update-profile-lastname'}))
+    profile_picture = forms.CharField(widget=forms.FileInput(
+        attrs={'id': 'update-profile-picture'}))
+    location = forms.CharField(widget=forms.TextInput(
+        attrs={'id': 'update-profile-location'}))
+    bio = forms.CharField(widget=forms.TextInput(
+        attrs={'id': 'update-profile-bio'}))
+
     class Meta:
         model = Profile
-        fields = ('profile_picture', 'location', 'bio')
+        fields = ('firstname', 'lastname',
+                  'profile_picture', 'location', 'bio')
 
 
 class UpdatePostForm(forms.ModelForm):
