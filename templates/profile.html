@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %}  
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,20 +45,31 @@
     </div>
 
 <!-- posts -->
-   {% for p in posts %} 
-    <h2><strong>{{p.title}}</strong></h2>
+<div class="posts">
+{% for p in posts %}
+  <div class="post">
+    <h2 class="post-title">{{p.title}}</h2>
       {% if p.image %}
-        <img src="{{p.image.url}}"></img>
+        <img src="{{p.image.url}}" class="post-image" width="200px" height="200px"></img>
       {% else %}
-        <h5>No Image</h5>
-      {% endif %} 
-    <h5>{{p.text}}</h5>
-    <p>{{p.created_at}}</p>
-    <strong>{{p.number_of_likes}}</strong> likes and<strong> 
-          
-    {{p.comments.count}}</strong> comments
-      <a href="/update_post?post_id={{p.pk}}" class="change-post">update post</a>    
-      <a href="/delete_post?post_id={{p.pk}}" class="change-post">delete post</a>
-    {% endfor %}
+        <h5 class="no-image">No Image</h5>
+      {% endif %}
+      <div class="post-text"> 
+        <p>{{p.text}}</p>
+      </div>
+      <div class="post-created-at">
+        <p>{{p.created_at}}</p>
+      </div>
+      <div class="number-of-likes-and-comments">
+    <p>{{p.number_of_likes}} likes and
+    {{p.comments.count}} comments</p>
+    </div>
+    <div class="change-button">
+      <a href="/update_post?post_id={{p.pk}}" class="update-post-button">update post</a>    
+      <a href="/delete_post?post_id={{p.pk}}" class="delete-post-button">delete post</a>
+    </div>
+  </div>
+      {% endfor %}
+    </div>
   </body>
 </html>  

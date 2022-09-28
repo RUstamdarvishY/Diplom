@@ -139,3 +139,108 @@
   position: absolute;
   top: 9vh;
 }
+
+.posts {
+  position: absolute;
+  left: 8vw;
+  top: 70%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 3vw;
+  grid-row-gap: 2vh;
+}
+
+.post{
+  padding: 10px;
+  background: white;
+  border: 3px solid #be185d;
+  border-radius: 7px;
+  width: 25vw;
+  height: 42vh; 
+  margin-bottom: 10%;
+} 
+
+.another-post{
+  padding: 10px;
+  background: white;
+  border: 3px solid #be185d;
+  border-radius: 7px;
+  width: 25vw;
+  height: 37vh; 
+  margin-bottom: 10%;
+}
+
+.post-title {
+  background: white;
+  overflow: hidden;
+  font-size: 30px;
+}
+
+.post-image {
+  background: white;
+}
+
+.no-image {
+  background: white;
+}
+
+.post-text {
+  background: white;
+  overflow: scroll;
+  height: 150px;
+  margin-top: 10px;
+}
+
+.post-text > p {
+  background: white;
+}
+
+.post-created-at {
+  margin-top: 15px;
+  background: white;
+}
+.post-created-at > p {
+  background: white;
+  }
+
+.number-of-likes-and-comments {
+  margin-top: 10px;
+  background: white;
+}
+
+.number-of-likes-and-comments > p{
+  background: white;
+  font-weight: 700;
+}
+
+.change-button{
+  margin-top: 20px;
+  background: white;
+}
+
+
+.update-post-button {
+  background: #ffc0cb;
+  text-decoration: none;
+  color: black;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.delete-post-button {
+  background: #ffc0cb;
+  text-decoration: none;
+  color: black;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.update-post-button:hover {
+  background: #73989e;
+  transition: 1s;
+}
+
+.delete-post-button:hover {
+  background: #73989e;
+  transition: 1s;
+}

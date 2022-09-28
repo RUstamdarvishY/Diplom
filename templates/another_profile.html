@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %}  
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +19,7 @@
   <div class="background">
     <img src="/static/images/profile-background.jpg" alt="no image" class="background-image" />
 
-      <span class="number-of-posts">Number of posts: {{number_of_posts}}</span>
+      <span class="number-of-posts">Number of posts: {{post_number}}</span>
       <div class="user-avatar">
         {% if profile.profile_picture %}
           <img src="{{profile.profile_picture.url}}" alt="no image">
@@ -31,28 +31,37 @@
     
 <!-- user info -->
     <div class="user-info">
-      <span class="user-name">Name: <b>{{profile.firstname}}</b></span>
+      <span class="user-name">Name: <b>{{user_profile.firstname}}</b></span>
   
-      <span class="user-surname">Surname: <b>{{profile.lastname}}</b></span>
+      <span class="user-surname">Surname: <b>{{user_profile.lastname}}</b></span>
   
-      <span class="user-bio">Bio: <b>{{profile.bio}}</b></span>
+      <span class="user-bio">Bio: <b>{{user_profile.bio}}</b></span>
   
-      <span class="user-location">Location: <b>{{profile.location}}</b></span>
+      <span class="user-location">Location: <b>{{user_profile.location}}</b></span>
     </div>
 
 <!-- posts -->
-   {% for p in posts %} 
-    <h2><strong>{{p.title}}</strong></h2>
+<div class="posts">
+{% for p in posts %}
+  <div class="another-post">
+    <h2 class="post-title">{{p.title}}</h2>
       {% if p.image %}
-        <img src="{{p.image.url}}"></img>
+        <img src="{{p.image.url}}" class="post-image" width="200px" height="200px"></img>
       {% else %}
-        <h5>No Image</h5>
-      {% endif %} 
-    <h5>{{p.text}}</h5>
-    <p>{{p.created_at}}</p>
-    <strong>{{p.number_of_likes}}</strong> likes and<strong> 
-          
-    {{p.comments.count}}</strong> comments
-    {% endfor %}
+        <h5 class="no-image">No Image</h5>
+      {% endif %}
+      <div class="post-text"> 
+        <p>{{p.text}}</p>
+      </div>
+      <div class="post-created-at">
+        <p>{{p.created_at}}</p>
+      </div>
+      <div class="number-of-likes-and-comments">
+    <p>{{p.number_of_likes}} likes and
+    {{p.comments.count}} comments</p>
+    </div>
+  </div>
+      {% endfor %}
+    </div>
   </body>
 </html>  
