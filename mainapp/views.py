@@ -114,23 +114,32 @@ def profile(request):
         return render(request, 'another_profile.html', context)
 
 
-class UpdateProfileView(LoginRequiredMixin, TemplateView, FormMixin):
-    template_name = 'update_profile.html'
-    form_class = UpdateProfileForm
-    login_url = login_url
+@login_required(login_url=login_url)
+def update_profile(request):
+    profile = Profile.objects.filter(user=request.user).first()
 
-    def post(self, request):
+    if request.method == 'POST':
         logger.info('calling /update_profile')
         form = UpdateProfileForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            profile = Profile.objects.get(user=request.user)
+            profile.firstname = data['firstname']
+            profile.lastname = data['lastname']
             profile.profile_picture = data['profile_picture']
             profile.location = data['location']
             profile.bio = data['bio']
             profile.save()
             logger.info('Profile updated successfully')
         return redirect('/')
+
+    else:
+        form = UpdateProfileForm(instance=profile)
+
+        context = {
+            'form': form,
+            'profile': profile
+        }
+        return render(request, "update_profile.html", context)
 
 
 @login_required(login_url=login_url)
@@ -217,30 +226,28 @@ def delete_post(request):
     return redirect(f'profile/?user_pk={user_pk}')
 
 
-class UpdatePostView(TemplateView, LoginRequiredMixin, FormMixin):
-    template_name = 'update_post.html'
-    login_url = login_url
-    form_class = UpdatePostForm
+@login_required(login_url=login_url)
+def update_post(request):
+    post = Post.objects.get(author=request.user.pk)
 
-    def post(self, request):
-        logger.info('calling /update_post')
-        try:
-            user_pk = request.user.pk
-        except User.DoesNotExist:
-            logger.error('user does not exist')
+    if request.method == 'POST':
         form = UpdatePostForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            try:
-                post = Post.objects.get(author=user_pk)
-            except ObjectDoesNotExist:
-                logger.error('post does not exist')
             post.title = data['title']
             post.text = data['text']
             post.image = data['image']
             post.save()
-            logger.info('Post updated successfully')
-        return redirect(f'/profile/?user_pk={user_pk}')
+        return redirect(f'/profile/?user_pk={request.user.pk}')
+
+    else:
+        form = UpdatePostForm(instance=post)
+
+        context = {
+            'form': form,
+            'post': post
+        }
+        return render(request, "update_post.html", context)
 
 
 class CommentView(CreateView, LoginRequiredMixin):
