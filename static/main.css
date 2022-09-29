@@ -48,8 +48,8 @@
   position: absolute;
   left: 95%;
   top: 23%;
-  width: 0;
-  height: 0;
+  width: 0px;
+  height: 0px;
 }
 
 .posts {
@@ -231,4 +231,38 @@
 }
 
 .dropdown {
+  position: absolute;
+  width: 86px;
+  height: 40px;
+  left: -3.5vw;
+  top: 6vh;
+  padding: 4px;
+  background: white;
+  border: solid 2px #db2777;
+  border-radius: 8px;
+}
+
+#dropdown-profile-select {
+  background: white;
+  text-decoration: none;
+  color: black;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+#dropdown-logout-select {
+  background: white;
+  text-decoration: none;
+  color: black;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+#dropdown-profile-select:hover {
+  color: #357681;
+  transition: 0.8s;
+}
+
+#dropdown-logout-select:hover {
+  color: #357681;
+  transition: 0.8s;
 }

@@ -15,25 +15,18 @@
       <h1 class="name">My Blog</h1>
       <a href="/create_post/" class="upload-post">Upload Post</a>
       <!--dropdown -->
-       <div class="corner-avatar">
+    <div class="corner-avatar">
       {% if user_image.profile_picture %}
         <img src="{{user_image.profile_picture.url}}" class="header-avatar" alt="">
+        
         {% else %} 
             <img src="/static/images/blank-profile-picture.png" class="header-avatar" alt="" style="width: 35px; height: 35px; border-radius: 50%">
-        </div>
         {% endif %} 
-        <select>
-                <div class="dropdown">
-                <ul>
-                    <option value="">
-                        <li><a href="/profile/?user_pk={{user.pk}}">View Profile</a></li>
-                    </option>
-                    <option value="">
-                        <li><a href="/logout/">Log Out</a></li>
-                    </option>
-                </ul>
-            </div>
-        </select>
+        <div class="dropdown">
+          <a href="/profile/?user_pk={{user.pk}}" id="dropdown-profile-select">
+            View Profile</a>
+          <a href="/logout/" id="dropdown-logout-select">Log Out</a>
+      </div>
     </div>
   <!--content  -->
   <div class="posts">
@@ -50,7 +43,7 @@
         <h2 class="post-title">{{p.title}}</h2>
         {% if p.image %}
           <img src="{{p.image.url}}" class="post-image" 
-          width="200px" height="200px"></img>
+          width="450px" height="300px"></img>
         {% else %}
           <h5 class="no-image">No Image</h5>
         {% endif %} 
