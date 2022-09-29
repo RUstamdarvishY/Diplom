@@ -122,6 +122,9 @@ class PostForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    text = forms.CharField(max_length=100, widget=forms.Textarea(
+        attrs={'id': 'comment-text'}))
+
     class Meta:
         model = Comment
-        fields = ('comment_text',)
+        fields = ('text',)

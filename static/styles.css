@@ -369,7 +369,7 @@ input[type="password"]::placeholder {
   letter-spacing: -0.04cm;
 }
 
-#id_comment_text {
+#comment-text {
   position: absolute;
   height: 30vh;
   width: 45vw;

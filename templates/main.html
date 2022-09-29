@@ -61,8 +61,12 @@
           <h4>{{p.created_at}}</h4>
         </div>
         <div class="icons">
-          <a href="/like_post?post_id={{p.pk}}" class="">like</a>
-          <a href="/comment/?post_id={{p.pk}}" class="">comment</a>
+          <a href="/like_post?post_id={{p.pk}}" class="like-icon">
+            <img src="/static/icons/thumbs-up-solid.svg" 
+            class="fa-solid-thumbs-up-icon"></img></a>
+          <a href="/comment/?post_id={{p.pk}}" class="comment-icon">
+            <img src="static/icons/comment-solid.svg" 
+            class="fa-solid-comment-icon"></img></a>
         </div>
         <div class="number-of-likes-and-comments">
           <p><b>{{p.number_of_likes}}</b> likes and <b>{{p.comments.count}}</b> comments</p>
@@ -70,23 +74,27 @@
         {% if not p.comments.all %}
           <h2 class="no-comments-label">No comments</h2>
         {% else %}
+          <h2 class="comments-label">Comments: </h2>
         {% for comment in p.comments.all %}
         <div class="comments">
           <strong class="comment-author">{{comment.author}}</strong>
-          <h2 class="comment-text">{{comment.text}}</h2>
+          <p class="comment-text">{{comment.text}}</p>
           <p class="comment-created-at">{{comment.commented_at}}</p>
         </div>
+        <hr class="comment-separator">
         {% endfor %}
         {% endif %}  
         </div>  
     {% endfor %}
-    </div>           
     <!--pagination -->
-    <div class="pagination">
+    <div class="center">
+      <div class="pagination">
         {% for p in paginator.page_range %}
           <a href="?page={{ p }}" class="pagination-button">{{ p }}</a>
         {% endfor %}
-  </div>
+      </div>
+    </div>
+  </div>           
   </body>
 </html>
 

@@ -124,12 +124,32 @@
 }
 
 .icons {
+  margin-top: 15px;
+  background: white;
 }
 
 .like-icon {
+  background: white;
+  width: 25px;
+  height: 25px;
 }
 
+.fa-solid-thumbs-up-icon{
+  background: white;
+  width: 25px;
+  height: 25px;
+}
 .comment-icon {
+  background: white;
+  margin-left: 10px;
+  width: 25px;
+  height: 25px;
+}
+.fa-solid-comment-icon{
+  background: white;
+  margin-left: 10px;
+  width: 25px;
+  height: 25px;
 }
 
 .number-of-likes-and-comments {
@@ -152,22 +172,49 @@
 }
 
 .comments {
+  margin-top: 12px;
+  background: white;
+}
+
+.comments-label{
+  background: white;
+  font-size: 15px;
+  color: #333333;
+  margin-top: 10px;
+  margin-bottom: -8px;
 }
 
 .comment-author {
+  background: white;
+  font-size: 18px;
+  font-family: "Abyssinica SIL", serif;
 }
 
 .comment-text {
+  background: white;
+  margin-bottom: 5px;
 }
 
 .comment-created-at {
+  background: white;
+
+}
+
+.comment-separator{
+  margin-top: 5px;
+  width: 69vw;
+  color: #b0b3b8;
+}
+
+.center {
+  text-align: center;
+  margin-left: -50px; 
+  margin-top: -50px;
 }
 
 .pagination {
-  display: inline;
-  text-align: center;
+  display: inline-block;
 }
-
 
 .pagination-button{
   letter-spacing: 0.1mm;
