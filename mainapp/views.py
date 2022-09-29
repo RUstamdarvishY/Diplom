@@ -228,7 +228,7 @@ def delete_post(request):
 
 @login_required(login_url=login_url)
 def update_post(request):
-    post = Post.objects.get(author=request.user.pk)
+    post = Post.objects.filter(author=request.user.pk).first()
 
     if request.method == 'POST':
         form = UpdatePostForm(request.POST)

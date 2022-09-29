@@ -82,7 +82,7 @@ class UpdateProfileForm(forms.ModelForm):
     lastname = forms.CharField(widget=forms.TextInput(
         attrs={'id': 'update-profile-lastname'}))
     profile_picture = forms.CharField(widget=forms.FileInput(
-        attrs={'id': 'update-profile-picture'}))
+        attrs={'id': 'update-profile-picture'}), required=False)
     location = forms.CharField(widget=forms.TextInput(
         attrs={'id': 'update-profile-location'}))
     bio = forms.CharField(widget=forms.TextInput(
@@ -100,7 +100,7 @@ class UpdatePostForm(forms.ModelForm):
     text = forms.CharField(widget=forms.Textarea(
         attrs={'id': 'update-post-text'}))
     image = forms.CharField(widget=forms.FileInput(
-        attrs={'id': 'update-post-image'}))
+        attrs={'id': 'update-post-image'}), required=False)
 
     class Meta:
         model = Post
@@ -122,7 +122,7 @@ class PostForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    text = forms.CharField(max_length=100, widget=forms.Textarea(
+    text = forms.CharField(max_length=255, widget=forms.Textarea(
         attrs={'id': 'comment-text'}))
 
     class Meta:

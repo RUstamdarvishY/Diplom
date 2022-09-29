@@ -342,7 +342,7 @@ input[type="password"]::placeholder {
 .comment-button {
   position: absolute;
   left: 12%;
-  top: 28%;
+  top: 26vh;
   font-size: 15px;
   font-weight: 500;
   width: 150px;

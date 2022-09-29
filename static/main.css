@@ -134,7 +134,7 @@
   height: 25px;
 }
 
-.fa-solid-thumbs-up-icon{
+.fa-solid-thumbs-up-icon {
   background: white;
   width: 25px;
   height: 25px;
@@ -145,7 +145,7 @@
   width: 25px;
   height: 25px;
 }
-.fa-solid-comment-icon{
+.fa-solid-comment-icon {
   background: white;
   margin-left: 10px;
   width: 25px;
@@ -176,7 +176,7 @@
   background: white;
 }
 
-.comments-label{
+.comments-label {
   background: white;
   font-size: 15px;
   color: #333333;
@@ -197,10 +197,9 @@
 
 .comment-created-at {
   background: white;
-
 }
 
-.comment-separator{
+.comment-separator {
   margin-top: 5px;
   width: 69vw;
   color: #b0b3b8;
@@ -208,7 +207,7 @@
 
 .center {
   text-align: center;
-  margin-left: -50px; 
+  margin-left: -50px;
   margin-top: -50px;
 }
 
@@ -216,7 +215,7 @@
   display: inline-block;
 }
 
-.pagination-button{
+.pagination-button {
   letter-spacing: 0.1mm;
   color: black;
   padding: 8px 16px;
@@ -227,10 +226,9 @@
   transition-duration: 0.5s;
 }
 
-.pagination-button:hover{
+.pagination-button:hover {
   background: rgba(219, 39, 119, 0.65);
 }
 
-.dropdown{
-  
+.dropdown {
 }
