@@ -34,8 +34,8 @@
     {% for p in posts %}
       <div class="post"> 
         <div class="post-author">
-          {% if user_image.profile_picture %}
-            <img src="{{user_image.profile_picture.url}}" class="header-avatar" 
+          {% if author_image.profile_picture %}
+            <img src="{{author_image.profile_picture.url}}" class="header-avatar" 
             alt="" style="width: 25px; height: 25px; border-radius: 50%">
           {% else %} 
             <img src="/static/images/blank-profile-picture.png" class="post-avatar" alt="" style="width: 25px; height: 25px; border-radius: 50%">

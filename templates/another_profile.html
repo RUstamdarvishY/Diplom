@@ -21,8 +21,8 @@
 
       <span class="number-of-posts">Number of posts: {{post_number}}</span>
       <div class="user-avatar">
-        {% if profile.profile_picture %}
-        <img src="{{profile.profile_picture.url}}" alt="no image" id="user-avatar-image" width="220px" height="230px" style="border-radius: 10px; border: 3px solid #4a82fe">
+        {% if user_profile.profile_picture %}
+        <img src="{{user_profile.profile_picture.url}}" alt="no image" id="user-avatar-image" width="220px" height="230px" style="border-radius: 10px; border: 3px solid #4a82fe">
         {% else %} 
           <img src="/static/images/blank-profile-picture.png" alt="no image" width="220px" height="230px" style="border-radius: 10px; border: 3px solid #4a82fe">
         {% endif %}
