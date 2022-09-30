@@ -291,6 +291,13 @@ input[type="password"]::placeholder {
   color: rgba(255, 0, 0, 0.6);
 }
 
+.register-error-message {
+  position: absolute;
+  top: 6vh;
+  font-size: 15px;
+  font-family: "Courier New", Courier, monospace;
+  color: rgba(255, 0, 0, 0.6);
+}
 #id_title {
   position: absolute;
   margin-top: 10vh;
