@@ -17,7 +17,8 @@
       <!--dropdown -->
     <div class="corner-avatar">
       {% if user_image.profile_picture %}
-        <img src="{{user_image.profile_picture.url}}" class="header-avatar" alt="">
+        <img src="{{user_image.profile_picture.url}}" class="header-avatar" 
+        alt="" style="width: 35px; height: 35px; border-radius: 50%">
         
         {% else %} 
             <img src="/static/images/blank-profile-picture.png" class="header-avatar" alt="" style="width: 35px; height: 35px; border-radius: 50%">
@@ -34,7 +35,8 @@
       <div class="post"> 
         <div class="post-author">
           {% if user_image.profile_picture %}
-            <img src="{{user_image.profile_picture.url}}" class="header-avatar" alt="">
+            <img src="{{user_image.profile_picture.url}}" class="header-avatar" 
+            alt="" style="width: 25px; height: 25px; border-radius: 50%">
           {% else %} 
             <img src="/static/images/blank-profile-picture.png" class="post-avatar" alt="" style="width: 25px; height: 25px; border-radius: 50%">
           {% endif %} 

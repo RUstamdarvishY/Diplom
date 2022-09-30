@@ -51,7 +51,7 @@
 
 .background-image {
   position: absolute;
-  width: 100vw;
+  width: 100%;
   height: 43vh;
   z-index: 0;
 }
@@ -64,6 +64,10 @@
   height: 0px;
   z-index: 1;
   border: 4px;
+}
+#user-avatar-image{
+  position: absolute;
+  z-index: 1;
 }
 
 .number-of-posts {
@@ -178,6 +182,13 @@
 
 .post-image {
   background: white;
+  text-decoration: none;
+  color: black;
+  font-weight: 700;
+}
+
+.post-image:hover{
+  text-shadow: 3px 4px 1px rgb(255, 192, 203);
 }
 
 .no-image {

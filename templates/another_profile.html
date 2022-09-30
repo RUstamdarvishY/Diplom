@@ -17,12 +17,12 @@
   </div>
 
   <div class="background">
-    <img src="/static/images/profile-background.jpg" alt="no image" class="background-image" />
+    <img src="/static/images/profile-background.jpg" alt="no image" class="background-image" draggable="false"/>
 
       <span class="number-of-posts">Number of posts: {{post_number}}</span>
       <div class="user-avatar">
         {% if profile.profile_picture %}
-          <img src="{{profile.profile_picture.url}}" alt="no image">
+        <img src="{{profile.profile_picture.url}}" alt="no image" id="user-avatar-image" width="220px" height="230px" style="border-radius: 10px; border: 3px solid #4a82fe">
         {% else %} 
           <img src="/static/images/blank-profile-picture.png" alt="no image" width="220px" height="230px" style="border-radius: 10px; border: 3px solid #4a82fe">
         {% endif %}
@@ -46,7 +46,7 @@
   <div class="another-post">
     <h2 class="post-title">{{p.title}}</h2>
       {% if p.image %}
-        <img src="{{p.image.url}}" class="post-image" width="200px" height="200px"></img>
+      <a href="{{p.image.url}}" class="post-image">image</a>
       {% else %}
         <h5 class="no-image">No Image</h5>
       {% endif %}
