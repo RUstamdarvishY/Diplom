@@ -34,12 +34,13 @@
     {% for p in posts %}
       <div class="post"> 
         <div class="post-author">
-          {% if author_image.profile_picture %}
-            <img src="{{author_image.profile_picture.url}}" class="header-avatar" 
+          <div class="dot"></div>
+          {% comment %} {% if p.profile %}
+            <img src="{{p.profile}}" class="header-avatar" 
             alt="" style="width: 25px; height: 25px; border-radius: 50%">
           {% else %} 
             <img src="/static/images/blank-profile-picture.png" class="post-avatar" alt="" style="width: 25px; height: 25px; border-radius: 50%">
-          {% endif %} 
+          {% endif %}  {% endcomment %}
           <a href="/profile?user_pk={{p.author.pk}}" id="post-author">{{p.author}}</a>
         </div> 
         <h2 class="post-title">{{p.title}}</h2>

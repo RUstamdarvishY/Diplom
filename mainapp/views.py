@@ -166,7 +166,6 @@ class MainView(LoginRequiredMixin, ListView):
         logger.info('calling /main')
         context = super().get_context_data(**kwargs)
         context['user_image'] = Profile.objects.get(user=self.request.user)
-        # context['author-image'] =
         return context
 
 
