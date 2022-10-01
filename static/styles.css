@@ -388,7 +388,7 @@ input[type="password"]::placeholder {
 .update-post-button {
   position: absolute;
   left: 62%;
-  top: 25vh;
+  top: 27vh;
   font-size: 20px;
   width: 70px;
   height: 35px;
@@ -485,7 +485,7 @@ input[type="password"]::placeholder {
 .update-profile-button {
   position: absolute;
   left: 62%;
-  top: 25vh;
+  top: 27vh;
   font-size: 20px;
   width: 70px;
   height: 35px;

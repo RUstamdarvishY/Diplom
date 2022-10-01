@@ -242,11 +242,11 @@
 
 .dropdown {
   position: absolute;
-  width: 86px;
-  height: 40px;
-  left: -3.5vw;
+  width: 7vw;
+  height: 5vh;
+  left: -4.5vw;
   top: 6vh;
-  padding: 4px;
+  padding: 5px;
   background: white;
   border: solid 2px #db2777;
   border-radius: 8px;
@@ -258,6 +258,7 @@
   color: black;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-size: 15px;
 }
 #dropdown-logout-select {
   background: white;
@@ -265,6 +266,7 @@
   color: black;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-size: 15px;
 }
 
 #dropdown-profile-select:hover {
