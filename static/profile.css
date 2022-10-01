@@ -22,7 +22,7 @@ html {
   position: absolute;
   font-family: "Abyssinica SIL", serif;
   font-size: 23px;
-  left: 1300px;
+  left: 82%;
   top: 5px;
   background-color: inherit;
 }
@@ -200,7 +200,7 @@ html {
 
 .post-text {
   background: white;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   height: 150px;
   margin-top: 10px;
