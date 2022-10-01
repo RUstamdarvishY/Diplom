@@ -6,12 +6,12 @@
   margin: 0px;
   padding: 0px;
 }
-html{
+html {
   overflow-x: hidden;
 }
 
 .top-bar {
-  width: 100%;
+  width: 1700px;
   height: 45px;
   background-color: white;
   border-bottom: solid 2px grey;
@@ -22,14 +22,14 @@ html{
   position: absolute;
   font-family: "Abyssinica SIL", serif;
   font-size: 23px;
-  left: 80%;
+  left: 1300px;
   top: 5px;
   background-color: inherit;
 }
 
 .home-link {
   position: absolute;
-  left: 5%;
+  left: 85px;
   top: 7px;
   font-size: 17px;
   font-family: "Abyssinica SIL", serif;
@@ -55,28 +55,28 @@ html{
 .background-image {
   position: absolute;
   width: 100%;
-  height: 43vh;
+  height: 340px;
   z-index: 0;
 }
 
 .user-avatar {
   position: absolute;
-  left: 4vw;
-  top: 23vh;
+  left: 60px;
+  top: 200px;
   width: 0px;
   height: 0px;
   z-index: 1;
   border: 4px;
 }
-#user-avatar-image{
+#user-avatar-image {
   position: absolute;
   z-index: 1;
 }
 
 .number-of-posts {
   position: absolute;
-  top: 39vh;
-  left: 20vw;
+  top: 305px;
+  left: 310px;
   background: transparent;
   color: white;
   font-family: "Abyssinica SIL", serif;
@@ -86,8 +86,8 @@ html{
 
 .change-profile {
   position: absolute;
-  top: 38vh;
-  left: 80vw;
+  top: 300px;
+  left: 1200px;
   text-decoration: none;
   color: black;
   background: transparent;
@@ -124,56 +124,56 @@ html{
 
 .user-info {
   position: relative;
-  top: 45vh;
-  left: 20vw;
+  top: 345px;
+  left: 310px;
   font-family: "Abyssinica SIL", serif;
   font-size: 18px;
 }
 
 .user-name {
   position: absolute;
-  top: 0vh;
+  top: 0px;
 }
 .user-surname {
   position: absolute;
-  top: 3vh;
+  top: 22px;
 }
 .user-bio {
   position: absolute;
-  top: 6vh;
+  top: 44px;
 }
 .user-location {
   position: absolute;
-  top: 9vh;
+  top: 66px;
 }
 
 .posts {
   position: absolute;
-  left: 8vw;
-  top: 70%;
+  left: 130px;
+  top: 550px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 3vw;
-  grid-row-gap: 2vh;
+  grid-column-gap: 50px;
+  grid-row-gap: 25px;
 }
 
-.post{
+.post {
   padding: 10px;
   background: white;
   border: 3px solid #be185d;
   border-radius: 7px;
-  width: 25vw;
-  height: 42vh; 
+  width: 375px;
+  height: 320px;
   margin-bottom: 10%;
-} 
+}
 
-.another-post{
+.another-post {
   padding: 10px;
   background: white;
   border: 3px solid #be185d;
   border-radius: 7px;
-  width: 25vw;
-  height: 37vh; 
+  width: 375px;
+  height: 285px;
   margin-bottom: 10%;
 }
 
@@ -190,7 +190,7 @@ html{
   font-weight: 700;
 }
 
-.post-image:hover{
+.post-image:hover {
   text-shadow: 3px 4px 1px rgb(255, 192, 203);
 }
 
@@ -215,23 +215,22 @@ html{
 }
 .post-created-at > p {
   background: white;
-  }
+}
 
 .number-of-likes-and-comments {
   margin-top: 10px;
   background: white;
 }
 
-.number-of-likes-and-comments > p{
+.number-of-likes-and-comments > p {
   background: white;
   font-weight: 700;
 }
 
-.change-button{
+.change-button {
   margin-top: 20px;
   background: white;
 }
-
 
 .update-post-button {
   background: #ffc0cb;
