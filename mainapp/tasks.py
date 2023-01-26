@@ -1,5 +1,5 @@
 import logging
-from blog.celery import celery
+from blog.celer import celery
 from django.core.mail import BadHeaderError
 from templated_mail.mail import BaseEmailMessage
 
