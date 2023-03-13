@@ -1,75 +1,101 @@
-{% load static %}  
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/static/profile.css" />
-  <title>Profile</title>
-</head>
-<body>   
-  <!--header -->
-  <div class="top-bar">
-    <a href="/" class="home-link">Home</a>
-    <span class="username">{{user.username}}</span>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/profile.css" />
+    <title>Profile</title>
+  </head>
+  <body>
+    <!--header -->
+    <div class="top-bar">
+      <a href="/" class="home-link">Home</a>
+      <span class="username">{{user.username}}</span>
+    </div>
 
-  <div class="background">
-    <img src="/static/images/profile-background.jpg" alt="no image" class="background-image" draggable="false"/>
+    <div class="background">
+      <img
+        src="/static/images/profile-background.jpg"
+        alt="no image"
+        class="background-image"
+        draggable="false"
+      />
 
       <span class="number-of-posts">Number of posts: {{number_of_posts}}</span>
       <div class="user-avatar">
         {% if profile.profile_picture %}
-          <img src="{{profile.profile_picture.url}}" alt="no image" id="user-avatar-image" width="220px" height="230px" style="border-radius: 10px; border: 3px solid #4a82fe">
-        {% else %} 
-          <img src="/static/images/blank-profile-picture.png" alt="no image" width="220px" height="230px" style="border-radius: 10px; border: 3px solid #4a82fe">
+        <img
+          src="{{profile.profile_picture.url}}"
+          alt="no image"
+          id="user-avatar-image"
+          width="220px"
+          height="230px"
+          style="border-radius: 10px; border: 3px solid #4a82fe"
+        />
+        {% else %}
+        <img
+          src="/static/images/blank-profile-picture.png"
+          alt="no image"
+          width="220px"
+          height="230px"
+          style="border-radius: 10px; border: 3px solid #4a82fe"
+        />
         {% endif %}
       </div>
       <div class="change-profile">
         <a href="/update_profile/" class="update-profile">update profile</a>
-        <a href="/delete_profile/" class="delete-profile">delete profile</a>
+        <a
+          href="/delete_profile/"
+          style="margin-left: 10px"
+          class="delete-profile"
+          >delete profile</a
+        >
       </div>
-  </div>
-    
-<!-- user info -->
+    </div>
+
+    <!-- user info -->
     <div class="user-info">
       <span class="user-name">Name: <b>{{profile.firstname}}</b></span>
-  
+
       <span class="user-surname">Surname: <b>{{profile.lastname}}</b></span>
-  
+
       <span class="user-bio">Bio: <b>{{profile.bio}}</b></span>
-  
+
       <span class="user-location">Location: <b>{{profile.location}}</b></span>
     </div>
 
-<!-- posts -->
-<div class="posts">
-{% for p in posts %}
-  <div class="post">
-    <h2 class="post-title">{{p.title}}</h2>
-      {% if p.image %}
+    <!-- posts -->
+    <div class="posts">
+      {% for p in posts %}
+      <div class="post">
+        <h2 class="post-title">{{p.title}}</h2>
+        {% if p.image %}
         <a href="{{p.image.url}}" class="post-image">image</a>
-      {% else %}
+        {% else %}
         <h5 class="no-image">No Image</h5>
-      {% endif %}
-      <div class="post-text"> 
-        <p>{{p.text}}</p>
+        {% endif %}
+        <div class="post-text">
+          <p>{{p.text}}</p>
+        </div>
+        <div class="post-created-at">
+          <p>{{p.created_at}}</p>
+        </div>
+        <div class="number-of-likes-and-comments">
+          <p>{{p.number_of_likes}} likes and {{p.comments.count}} comments</p>
+        </div>
+        <div class="change-button">
+          <a href="/update_post?post_id={{p.pk}}" class="update-post-button"
+            >update post</a
+          >
+          <a href="/delete_post?post_id={{p.pk}}" class="delete-post-button"
+            >delete post</a
+          >
+        </div>
       </div>
-      <div class="post-created-at">
-        <p>{{p.created_at}}</p>
-      </div>
-      <div class="number-of-likes-and-comments">
-    <p>{{p.number_of_likes}} likes and
-    {{p.comments.count}} comments</p>
-    </div>
-    <div class="change-button">
-      <a href="/update_post?post_id={{p.pk}}" class="update-post-button">update post</a>    
-      <a href="/delete_post?post_id={{p.pk}}" class="delete-post-button">delete post</a>
-    </div>
-  </div>
       {% endfor %}
     </div>
   </body>
-</html>  
+</html>

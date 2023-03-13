@@ -71,7 +71,7 @@
   margin-bottom: 10vh;
 }
 
-.dot{
+.dot {
   width: 10px;
   height: 10px;
   background: black;
@@ -243,9 +243,9 @@
 .dropdown {
   position: absolute;
   width: 7vw;
-  height: 5vh;
+  height: 6vh;
   left: -4.5vw;
-  top: 6vh;
+  top: 7vh;
   padding: 5px;
   background: white;
   border: solid 2px #db2777;
@@ -258,7 +258,7 @@
   color: black;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-    font-size: 15px;
+  font-size: 15px;
 }
 #dropdown-logout-select {
   background: white;
@@ -266,7 +266,7 @@
   color: black;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-    font-size: 15px;
+  font-size: 15px;
 }
 
 #dropdown-profile-select:hover {
@@ -278,3 +278,4 @@
   color: #357681;
   transition: 0.8s;
 }
+

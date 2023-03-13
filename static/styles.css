@@ -230,7 +230,7 @@ input[type="password"]::placeholder {
 
 #id_profile_picture {
   position: absolute;
-  margin-left: 13%;
+  margin-left: 15%;
   margin-top: 30vh;
   background: transparent;
   width: 7%;
@@ -310,7 +310,7 @@ input[type="password"]::placeholder {
 }
 #id_image {
   position: absolute;
-  margin-left: 10%;
+  margin-left: 12%;
   margin-top: 53vh;
   background: transparent;
   width: 7%;
@@ -416,8 +416,9 @@ input[type="password"]::placeholder {
   height: 35vh;
   resize: none;
 }
+
 #update-post-image {
-  margin-left: 19%;
+  margin-left: 21%;
   margin-top: 45vh;
   background: transparent;
   width: 7%;
@@ -451,7 +452,7 @@ input[type="password"]::placeholder {
 }
 
 #update-profile-picture {
-  margin-left: 16vw;
+  margin-left: 19vw;
   margin-top: 16vh;
   background: transparent;
   width: 7%;
