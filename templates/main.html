@@ -13,6 +13,10 @@
   <!--header -->
   <div class="top-bar">
       <h1 class="name">My Blog</h1>
+      <form action="" id="search-bar">
+          <input class="search-bar" type="text" placeholder="Search by title", name="title_search" value={{ request.GET.title }}></input>
+          <input type="submit" class="search-bar-icon" value="find"></input>
+        </form>
       <a href="/create_post/" class="upload-post">Upload Post</a>
       <!--dropdown -->
     <div class="corner-avatar">

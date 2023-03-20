@@ -157,7 +157,6 @@ def delete_profile(request):
 class MainView(LoginRequiredMixin, ListView):
     template_name = 'main.html'
     login_url = login_url
-    queryset = Post.objects.all()
     context_object_name = 'posts'
     paginate_by = 3
     ordering = ['-created_at']
@@ -167,6 +166,15 @@ class MainView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['user_image'] = Profile.objects.get(user=self.request.user)
         return context
+    
+    def get_queryset(self):
+        queryset = Post.objects.all()
+        post_title = self.request.GET.get('title_search')
+        print(post_title)
+        if post_title is not None:
+            queryset = queryset.filter(title__icontains=post_title)
+
+        return queryset
 
 
 class CreatePostView(LoginRequiredMixin, TemplateView, FormMixin):
@@ -277,3 +285,5 @@ class CommentView(CreateView, LoginRequiredMixin):
         comment.save()
         logger.info('Comment created successfully')
         return redirect('/')
+
+
